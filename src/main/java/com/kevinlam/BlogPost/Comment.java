@@ -10,13 +10,32 @@ public class Comment {
     private int dislikes;
     private String name;
 
-    public Comment(String comment, Date date, String name) {
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "comment='" + comment + '\'' +
+                ", name='" + name + '\'' +
+                ", likes=" + likes +
+                ", dislikes=" + dislikes +
+                ", date=" + date +
+                '}';
+    }
+
+    public Comment(String comment, String name, Date date) {
         this.comment = comment;
         this.date = date;
         this.name = name;
         this.likes = 0;
         this.dislikes = 0;
     }
+    public Comment(String comment, String name, Date date, int likes, int dislikes) {
+        this.comment = comment;
+        this.date = date;
+        this.name = name;
+        this.likes = likes;
+        this.dislikes = dislikes;
+    }
+
 
     public String getComment() {
         return comment;

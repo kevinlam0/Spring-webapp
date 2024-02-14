@@ -1,9 +1,10 @@
 package com.kevinlam.BlogPost;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import org.hibernate.annotations.processing.SQL;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommentDB {
     Connection conn = null;
@@ -30,5 +31,21 @@ public class CommentDB {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Comment> getAll() {
+        List<Comment> comments = new ArrayList<>();
+        String query = "SELECT comment, name, likes, dislikes, submission FROM Comments;";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                comments.add(new Comment(rs.getString(1), rs.getString(2), rs.getDate(5), rs.getInt(3), rs.getInt(4)));
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return comments;
     }
 }

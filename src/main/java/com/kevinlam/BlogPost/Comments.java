@@ -1,14 +1,25 @@
 package com.kevinlam.BlogPost;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.sql.Date;
 
-public class Comment {
+@Entity
+public class Comments {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String comment;
-    private Date date;
+    private Date submission;
     private int likes;
 
     private int dislikes;
     private String name;
+
+    public Comments() { }
 
     @Override
     public String toString() {
@@ -17,25 +28,28 @@ public class Comment {
                 ", name='" + name + '\'' +
                 ", likes=" + likes +
                 ", dislikes=" + dislikes +
-                ", date=" + date +
+                ", submission=" + submission +
                 '}';
     }
 
-    public Comment(String comment, String name, Date date) {
+    public Comments(String comment, String name, Date date) {
         this.comment = comment;
-        this.date = date;
+        this.submission = date;
         this.name = name;
         this.likes = 0;
         this.dislikes = 0;
     }
-    public Comment(String comment, String name, Date date, int likes, int dislikes) {
+    public Comments(String comment, String name, Date submission, int likes, int dislikes) {
         this.comment = comment;
-        this.date = date;
+        this.submission = submission;
         this.name = name;
         this.likes = likes;
         this.dislikes = dislikes;
     }
 
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getComment() {
         return comment;
@@ -46,11 +60,11 @@ public class Comment {
     }
 
     public Date getDate() {
-        return date;
+        return submission;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.submission = date;
     }
 
     public int getLikes() {

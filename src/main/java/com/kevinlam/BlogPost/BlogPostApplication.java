@@ -18,11 +18,11 @@ public class BlogPostApplication {
 //		for (Comment c : comments) {
 //			System.out.println(c);
 //		}
-		long millis=System.currentTimeMillis();
-		Date current = new Date(millis);
-		Comment c = new Comment("This is the second comment", "Kevin Lam", current);
-		service.addComment(c);
-		List<Comment> comments = service.getAllComments();
+//		long millis=System.currentTimeMillis();
+//		Date current = new Date(millis);
+//		Comment c = new Comment("different comment", "Kelly", current);
+//		service.addComment(c);
+		List<Comment> comments = service.getCommentsFromUser("Kevin Lam");
 		for (Comment d : comments) {
 			System.out.println(d);
 		}

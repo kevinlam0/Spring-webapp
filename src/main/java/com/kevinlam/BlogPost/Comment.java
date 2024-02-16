@@ -1,12 +1,9 @@
 package com.kevinlam.BlogPost;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.sql.Date;
-
+@Table(name = "Comment")
 @Entity
 public class Comment {
     @Id

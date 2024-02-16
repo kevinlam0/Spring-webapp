@@ -2,12 +2,17 @@ package com.kevinlam.BlogPost;
 
 import org.hibernate.annotations.processing.SQL;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
 public interface CommentDB extends JpaRepository<Comment, Integer> {
+    @Query(value = "SELECT * FROM Comment WHERE name=?",nativeQuery = true)
+    public List<Comment> findByName(String username);
+
 //    Connection conn = null;
 //
 //    public CommentDB() {

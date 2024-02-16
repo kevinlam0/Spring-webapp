@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface CommentDB extends JpaRepository<Comments, Integer> {
+public interface CommentDB extends JpaRepository<Comment, Integer> {
 //    Connection conn = null;
 //
 //    public CommentDB() {

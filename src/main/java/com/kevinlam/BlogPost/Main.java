@@ -8,11 +8,11 @@ public class Main {
 //        long millis=System.currentTimeMillis();
 //        Date current = new Date(millis);
 //        Comment c = new Comment("This is the second comment", current, "Kevin");
-        CommentDB db = new CommentDB();
-        List<Comment> comments = db.getAll();
-//        db.addComment(c);
-        for (Comment comment: comments) {
-            System.out.println(comment);
-        }
+//        CommentDB db = new CommentDB();
+//        List<Comment> comments = db.getAll();
+////        db.addComment(c);
+//        for (Comment comment: comments) {
+//            System.out.println(comment);
+//        }
     }
 }

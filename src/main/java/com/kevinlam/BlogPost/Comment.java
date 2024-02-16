@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import java.sql.Date;
 
 @Entity
-public class Comments {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,7 +19,7 @@ public class Comments {
     private int dislikes;
     private String name;
 
-    public Comments() { }
+    public Comment() { }
 
     @Override
     public String toString() {
@@ -32,14 +32,14 @@ public class Comments {
                 '}';
     }
 
-    public Comments(String comment, String name, Date date) {
+    public Comment(String comment, String name, Date date) {
         this.comment = comment;
         this.submission = date;
         this.name = name;
         this.likes = 0;
         this.dislikes = 0;
     }
-    public Comments(String comment, String name, Date submission, int likes, int dislikes) {
+    public Comment(String comment, String name, Date submission, int likes, int dislikes) {
         this.comment = comment;
         this.submission = submission;
         this.name = name;

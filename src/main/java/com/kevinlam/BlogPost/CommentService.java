@@ -17,10 +17,13 @@ public class CommentService {
 //        db.addComment(c);
 //    }
 //
-    public List<Comments> getAllComments() {
+    public List<Comment> getAllComments() {
         return db.findAll();
 //        try { return db.findAll(); }
 //        catch (Exception e) { throw new RuntimeException("There is an error here"); }
+    }
+    public void addComment(Comment c) {
+        db.save(c);
     }
 //
 //    public List<Comment> getCommentsOfUser(String username) {

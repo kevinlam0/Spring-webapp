@@ -11,17 +11,8 @@ import java.util.List;
 public class CommentService {
     @Autowired
     CommentDB db;
-//    public CommentService() {
-//        db = new CommentDB();
-//    }
-//    public void addComment(Comment c) {
-//        db.addComment(c);
-//    }
-//
     public List<Comment> getAllComments() {
         return db.findAll();
-//        try { return db.findAll(); }
-//        catch (Exception e) { throw new RuntimeException("There is an error here"); }
     }
     public void addComment(Comment c) {
         db.save(c);

@@ -17,7 +17,12 @@ export const CommentList = () => {
       {
         comments.map(comment => (
           <li key={comment.id}>
-            <Comment author={comment.name} content={comment.content} date={comment.date} likes={comment.likes}/>
+            <Comment 
+              author={comment.name} 
+              content={comment.content} 
+              date={comment.date} 
+              likes={comment.likes}
+            />
           </li>
         ))
       }

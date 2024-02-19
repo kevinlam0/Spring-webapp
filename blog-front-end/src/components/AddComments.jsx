@@ -3,7 +3,7 @@ import { CommentSection } from 'replyke';
 
 export const CommentForm = () => {
     const [comment, setComment] = useState({
-        comment: "",
+        content: "",
         name: "anonymous"
     })
     const handleSubmit = (e) => {
@@ -30,8 +30,8 @@ export const CommentForm = () => {
         <form onSubmit={handleSubmit}> 
             <input
                 type='text'
-                name='comment'
-                value={comment.comment}
+                name='content'
+                value={comment.content}
                 onChange={handleChange}
                 placeholder='Enter Comment...' />
             <button type="submit">Submit</button>

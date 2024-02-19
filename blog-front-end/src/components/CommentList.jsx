@@ -1,7 +1,8 @@
 import React from "react";
 import {useEffect, useState} from "react";
+import { Comment } from "./Comment";
 
-export const Comments = () => {
+export const CommentList = () => {
 	const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -13,7 +14,13 @@ export const Comments = () => {
 
 	return (
 		<ul>
-			{comments.map(comment => ( <li key={comment.id}>{comment.comment}</li> ))}
+      {
+        comments.map(comment => (
+          <li key={comment.id}>
+            <Comment author={comment.name} content={comment.content} date={comment.date} likes={comment.likes}/>
+          </li>
+        ))
+      }
     </ul>
 	)
 }

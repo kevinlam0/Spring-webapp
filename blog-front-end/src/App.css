@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.opening-pics {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.opening-pics img {
+  width: auto;
+  max-width: 40%;
+  height: auto;
+  padding: 20px;
+}

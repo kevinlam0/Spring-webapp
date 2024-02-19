@@ -44,7 +44,8 @@
 }
 
 .opening-pics img {
-  width: 500px;
+  width: auto;
+  max-width: 40%;
   height: auto;
   padding: 20px;
 }

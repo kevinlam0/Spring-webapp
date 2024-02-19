@@ -6,6 +6,8 @@ export const CommentForm = () => {
         content: "",
         name: "anonymous"
     })
+    const isTextAreaDisabled = comment.content.trim().length === 0;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -37,7 +39,7 @@ export const CommentForm = () => {
                 value={comment.content}
                 onChange={handleChange}
                 placeholder='Enter Comment...' />
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={isTextAreaDisabled}>Submit</button>
         </form>
     )
 }

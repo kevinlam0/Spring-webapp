@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import { Header } from "./components/Header";
 import { OpeningPictures } from "./components/OpeningPictures";
 import { Comments } from './components/Comments';
+import { CommentForm } from './components/AddComments'
 function App() {
 
   return (
@@ -10,6 +11,7 @@ function App() {
       <Header/>
       <OpeningPictures/>
       <Comments/>
+      <CommentForm/>
     </div>
   );
 }

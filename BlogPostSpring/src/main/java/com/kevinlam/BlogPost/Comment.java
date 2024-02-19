@@ -9,7 +9,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String comment;
+    private String content;
     private Date submission;
     private int likes;
 
@@ -21,7 +21,7 @@ public class Comment {
     @Override
     public String toString() {
         return "Comment{" +
-                "comment='" + comment + '\'' +
+                "comment='" + content + '\'' +
                 ", name='" + name + '\'' +
                 ", likes=" + likes +
                 ", dislikes=" + dislikes +
@@ -30,14 +30,14 @@ public class Comment {
     }
 
     public Comment(String comment, String name, Date date) {
-        this.comment = comment;
+        this.content = comment;
         this.submission = date;
         this.name = name;
         this.likes = 0;
         this.dislikes = 0;
     }
     public Comment(String comment, String name, Date submission, int likes, int dislikes) {
-        this.comment = comment;
+        this.content = comment;
         this.submission = submission;
         this.name = name;
         this.likes = likes;
@@ -48,12 +48,12 @@ public class Comment {
 
     public void setId(int id) { this.id = id; }
 
-    public String getComment() {
-        return comment;
+    public String getContent() {
+        return content;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void content(String content) {
+        this.content = content;
     }
 
     public Date getDate() {

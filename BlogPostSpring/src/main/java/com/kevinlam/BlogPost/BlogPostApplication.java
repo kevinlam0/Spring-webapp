@@ -22,7 +22,7 @@ public class BlogPostApplication {
 //		Date current = new Date(millis);
 //		Comment c = new Comment("different comment", "Kelly", current);
 //		service.addComment(c);
-		List<Comment> comments = service.getCommentsFromUser("Kevin Lam");
+		List<Comment> comments = service.getAllComments();
 		for (Comment d : comments) {
 			System.out.println(d);
 		}

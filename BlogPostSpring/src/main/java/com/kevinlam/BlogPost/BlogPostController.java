@@ -19,11 +19,6 @@ public class BlogPostController {
         return service.getAllComments();
     }
 
-    @PostMapping
-    public void addComment(@RequestBody Comment c) {
-        long millis=System.currentTimeMillis();
-        Date current = new Date(millis);
-        c.setDate(current);
-        service.addComment(c);
-    }
+    @PostMapping("/comments")
+    public void addComment(@RequestBody Comment c) { service.addComment(c); }
 }

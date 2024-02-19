@@ -2,7 +2,6 @@ import './App.css';
 import {useEffect, useState} from "react";
 function App() {
   const [comments, setComments] = useState([]);
-  
 
   useEffect(() => {
     fetch('http://localhost:8080/blogpost/comments')

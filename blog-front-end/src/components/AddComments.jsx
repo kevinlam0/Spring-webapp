@@ -2,10 +2,13 @@ import React, { useState, useContext } from 'react';
 import { CommentSection } from 'replyke';
 
 export const CommentForm = () => {
-    const [comment, setComment] = useState( '' )
-
+    const [comment, setComment] = useState({
+        comment: "",
+        name: "anonymous"
+    })
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(comment)
         fetch('http://localhost:8080/blogpost/comments', {
             method: 'POST',
             headers: {
@@ -18,17 +21,18 @@ export const CommentForm = () => {
         .catch(error => console.error("Error creating comment: ", error))
     }
 
-    // const handleChange = (e) => {
-    //     const { comment, value } = e.target;
-    //     setComment(prevComment => ({ ...prevComment, }))
-    // }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setComment(prevState => ({ ...prevState, [name]: value }))
+    }
+
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}> 
             <input
                 type='text'
-                name='name'
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
+                name='comment'
+                value={comment.comment}
+                onChange={handleChange}
                 placeholder='Enter Comment...' />
             <button type="submit">Submit</button>
         </form>

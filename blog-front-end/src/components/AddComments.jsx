@@ -6,19 +6,22 @@ export const CommentForm = () => {
         content: "",
         name: "anonymous"
     })
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(comment)
-        fetch('http://localhost:8080/blogpost/comments', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(comment),
-        })
-        .then(response => response.json())
-        .then(data => console.log("user created"))
-        .catch(error => console.error("Error creating comment: ", error))
+        try {
+            const response = await fetch('http://localhost:8080/blogpost/comments', { 
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}, 
+                body: JSON.stringify(comment) 
+            });
+            if (!response.ok) { throw new Error('Network response was not ok'); }
+            console.log("Comment Creation successful");
+        }
+        catch (error) { console.error("Error creating comment: ", error); }
+        // fetch('http://localhost:8080/blogpost/comments', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(comment) })
+        // .then(response => response.json())
+        // .then(data => console.log("user created"))
+        // .catch(error => console.error("Error creating comment: ", error));
     }
 
     const handleChange = (e) => {

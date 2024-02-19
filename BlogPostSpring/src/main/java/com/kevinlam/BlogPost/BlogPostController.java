@@ -20,11 +20,5 @@ public class BlogPostController {
     }
 
     @PostMapping("/comments")
-    public void addComment(@RequestBody Comment c) {
-        if (c.getContent().trim().equals("")) {throw new IllegalArgumentException("Comment cannot be blank");}
-        long millis=System.currentTimeMillis();
-        Date current = new Date(millis);
-        c.setDate(current);
-        service.addComment(c);
-    }
+    public void addComment(@RequestBody Comment c) { service.addComment(c); }
 }

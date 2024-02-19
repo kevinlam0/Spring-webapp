@@ -1,12 +1,8 @@
 import './App.css';
 import {useEffect, useState} from "react";
-
-// async renderComments() {
-//     const response = await fetch('/blogpost/comments');
-//
-// }
 function App() {
   const [comments, setComments] = useState([]);
+  
 
   useEffect(() => {
     fetch('http://localhost:8080/blogpost/comments')

@@ -1,5 +1,6 @@
 import './App.css';
 import {useEffect, useState} from "react";
+import { Header } from "./components/Header";
 function App() {
   const [comments, setComments] = useState([]);
 
@@ -12,7 +13,7 @@ function App() {
 
   return (
     <div>
-        <h2>Something</h2>
+      <Header/>
       <ul>
         {comments.map(comment => (
             <li key={comment.id}>{comment.comment}</li>

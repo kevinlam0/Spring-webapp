@@ -15,11 +15,10 @@ public class BlogPostApplication {
 		ApplicationContext context = SpringApplication.run(BlogPostApplication.class, args);
 		ReplyService service = context.getBean(ReplyService.class);
 		CommentService commentService = context.getBean(CommentService.class);
-		Comment comment = commentService.getCommentFromID(3).get();
-		Reply reply = new Reply(comment, "This is the first reply", "Kevin");
-//		service.addReplyToComment(comment, reply);
-		commentService.deleteCommentByID(3);
-		
+//		Reply reply = new Reply(comment, "This is the first reply", "Kevin");
+////		service.addReplyToComment(comment, reply);
+//		commentService.deleteCommentByID(3);
+
 //		List<Comment> comments = service.getAllComments();
 //		for (Comment c : comments) {
 //			System.out.println(c);

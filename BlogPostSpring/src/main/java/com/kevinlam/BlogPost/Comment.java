@@ -15,7 +15,6 @@ public class Comment {
     private Date submission;
     private int likes;
 
-    private int dislikes;
     private String name;
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private List<Reply> replies;
@@ -28,7 +27,6 @@ public class Comment {
                 "comment='" + content + '\'' +
                 ", name='" + name + '\'' +
                 ", likes=" + likes +
-                ", dislikes=" + dislikes +
                 ", submission=" + submission +
                 '}';
     }
@@ -38,14 +36,12 @@ public class Comment {
         this.submission = date;
         this.name = name;
         this.likes = 0;
-        this.dislikes = 0;
     }
-    public Comment(String comment, String name, Date submission, int likes, int dislikes) {
+    public Comment(String comment, String name, Date submission, int likes) {
         this.content = comment;
         this.submission = submission;
         this.name = name;
         this.likes = likes;
-        this.dislikes = dislikes;
     }
 
     public int getId() { return id; }
@@ -74,14 +70,6 @@ public class Comment {
 
     public void setLikes(int likes) {
         this.likes = likes;
-    }
-
-    public int getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(int dislikes) {
-        this.dislikes = dislikes;
     }
 
     public String getName() {

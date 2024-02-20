@@ -13,7 +13,13 @@ public class BlogPostApplication {
 	public static void main(String[] args) {
 
 		ApplicationContext context = SpringApplication.run(BlogPostApplication.class, args);
-		CommentService service = context.getBean(CommentService.class);
+		ReplyService service = context.getBean(ReplyService.class);
+		CommentService commentService = context.getBean(CommentService.class);
+		Comment comment = commentService.getCommentFromID(3).get();
+		Reply reply = new Reply(comment, "This is the first reply", "Kevin");
+//		service.addReplyToComment(comment, reply);
+		commentService.deleteCommentByID(3);
+		
 //		List<Comment> comments = service.getAllComments();
 //		for (Comment c : comments) {
 //			System.out.println(c);
@@ -22,10 +28,10 @@ public class BlogPostApplication {
 //		Date current = new Date(millis);
 //		Comment c = new Comment("different comment", "Kelly", current);
 //		service.addComment(c);
-		List<Comment> comments = service.getAllComments();
-		for (Comment d : comments) {
-			System.out.println(d);
-		}
+//		List<Comment> comments = service.getAllComments();
+//		for (Comment d : comments) {
+//			System.out.println(d);
+//		}
 	}
 
 }

@@ -12,11 +12,50 @@ public class Reply {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name= "id")
+    @JoinColumn(name="comment_id")
     private Comment comment;
 
     private String content;
     private String name;
     private Date submission;
     private int likes;
+
+    public Reply(Comment comment, String content, String name) {
+        this.comment = comment;
+        this.content = content;
+        this.name = name;
+    }
+
+    public Reply() {}
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
+
+    public Comment getComment() { return comment; }
+
+    public void setComment(Comment comment) { this.comment = comment; }
+
+    public String getContent() { return content; }
+
+    public void setContent(String content) { this.content = content; }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public Date getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(Date submission) {
+        this.submission = submission;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 }

@@ -3,6 +3,8 @@ package com.kevinlam.BlogPost;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
+
 @Table(name = "Comment")
 @Entity
 public class Comment {
@@ -15,6 +17,8 @@ public class Comment {
 
     private int dislikes;
     private String name;
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private List<Reply> replies;
 
     public Comment() { }
 
@@ -52,7 +56,7 @@ public class Comment {
         return content;
     }
 
-    public void content(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -88,4 +92,19 @@ public class Comment {
         this.name = name;
     }
 
+    public Date getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(Date submission) {
+        this.submission = submission;
+    }
+
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
+    }
 }

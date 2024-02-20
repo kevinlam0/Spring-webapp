@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommentService {
@@ -25,5 +26,6 @@ public class CommentService {
     public List<Comment> getCommentsFromUser(String username) {
         return db.findByName(username);
     }
-
+    public Optional<Comment> getCommentFromID(int id) {return db.findById(id);}
+    public void deleteCommentByID(int id) { db.deleteById(id); }
 }

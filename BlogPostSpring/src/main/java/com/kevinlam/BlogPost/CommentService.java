@@ -25,8 +25,5 @@ public class CommentService {
     public List<Comment> getCommentsFromUser(String username) {
         return db.findByName(username);
     }
-//    public List<Comment> getCommentsOfUser(String username) {
-//        // TODO: stub
-//        return new ArrayList<>();
-//    }
+
 }

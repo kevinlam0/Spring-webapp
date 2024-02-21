@@ -3,11 +3,11 @@ import { ReplyList } from './ReplyList';
 
 export const Comment = ({ comment_obj, handleAddReply }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
-  // const [replyContent, setReplyContent] = useState('');
   const [reply, setReply] = useState({
     content: "",
     name: "anonymous"
-})
+  })
+  const isTextAreaDisabled = reply.content.trim().length === 0;
 
   const toggleReplyInput = () => {
     setShowReplyInput(prevState => !prevState);
@@ -31,7 +31,7 @@ export const Comment = ({ comment_obj, handleAddReply }) => {
       {showReplyInput && (
         <div>
           <input type="text" value={reply.content} onChange={handleReplyChange} />
-          <button onClick={handleReplySubmit}>Submit Reply</button>
+          <button onClick={handleReplySubmit} disabled={isTextAreaDisabled}>Submit Reply</button>
           <button onClick={toggleReplyInput}>Cancel</button>
         </div>
       )}

@@ -1,26 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ReplyList } from './ReplyList';
 
-export const Comment = ({ comment_obj }) => {
+export const Comment = ({ comment_obj, handleAddReply }) => {
+  const [showReplyInput, setShowReplyInput] = useState(false);
+  // const [replyContent, setReplyContent] = useState('');
+  const [reply, setReply] = useState({
+    content: "",
+    name: "anonymous"
+})
 
-  // const deleteItem = async (itemId, itemType) => {
-  //   try {
-  //     const response = await fetch('http://localhost:8080/blogpost/comments', {
-  //       method: 'DELETE',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify({ id: itemId, type: itemType }) 
-  //     });
+  const toggleReplyInput = () => {
+    setShowReplyInput(prevState => !prevState);
+  };
 
-  //     if (!response.ok) { throw new Error('Network response was not ok'); }
-  //     console.log("Comment Deletion successful");
-  //   }
-  //   catch(error) {console.error('Error deleting item: ', error);};
-  // }
+  const handleReplyChange = (e) => {
+    const { value } = e.target;
+    setReply(prevState => ({ ...prevState, ['content']: value }))
+}
+
+  const handleReplySubmit = (e) => {
+    e.preventDefault();
+    handleAddReply(comment_obj.id, reply);
+    setShowReplyInput(false);
+    setReply(prevState => ({ ...prevState, ['content']: '' }))
+  };
 
   return (
     <div className="comment">
       <strong>{comment_obj.name}:</strong> {comment_obj.content} {comment_obj.submission} {comment_obj.likes}
+      {showReplyInput && (
+        <div>
+          <input type="text" value={reply.content} onChange={handleReplyChange} />
+          <button onClick={handleReplySubmit}>Submit Reply</button>
+          <button onClick={toggleReplyInput}>Cancel</button>
+        </div>
+      )}
       {/* <button onClick={() => deleteItem(comment_obj.id, "comment")}>Delete</button> */}
+      {!showReplyInput && (<button onClick={toggleReplyInput}>Reply</button>)}
       <ReplyList reply_list={comment_obj.replies}/>
     </div>
   );

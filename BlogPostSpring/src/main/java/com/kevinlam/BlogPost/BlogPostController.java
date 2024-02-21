@@ -26,7 +26,11 @@ public class BlogPostController {
     }
 
     @PostMapping("/comments")
-    public void addComment(@RequestBody Comment c) { commentService.addComment(c); }
+    public void addComment(@RequestBody Comment c) {
+        System.out.println("Getting called before adding");
+        commentService.addComment(c);
+        System.out.println("Thisisgetting");
+    }
 
     @DeleteMapping("/comments")
     public void deleteComment(@RequestBody Map<String, String> request) {
@@ -38,5 +42,10 @@ public class BlogPostController {
             else {throw new IllegalArgumentException("Something went wrong with deleting comment"); }
         }
         catch (Exception e ) { throw new IllegalArgumentException("Something went wrong with deleting comment"); }
+    }
+
+    @PostMapping("/comments/{comment_id}/reply")
+    public void addReply(@PathVariable("comment_id") int commentId, @RequestBody Reply reply) {
+        replyService.addReplyToComment(commentId, reply);
     }
 }

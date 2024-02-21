@@ -24,8 +24,8 @@ export const useNode = () => {
           console.log("Comment Deletion successful");
         }
         catch(error) {console.error('Error deleting item: ', error);}
-      }
+    }
 
-    return { addComment, deleteItem};
+    return { addComment, deleteItem };
     
 }

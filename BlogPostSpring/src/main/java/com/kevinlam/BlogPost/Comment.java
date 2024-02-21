@@ -1,8 +1,12 @@
 package com.kevinlam.BlogPost;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
+
 @Table(name = "Comment")
 @Entity
 public class Comment {
@@ -13,8 +17,10 @@ public class Comment {
     private Date submission;
     private int likes;
 
-    private int dislikes;
     private String name;
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JsonManagedReference
+    private List<Reply> replies;
 
     public Comment() { }
 
@@ -24,7 +30,6 @@ public class Comment {
                 "comment='" + content + '\'' +
                 ", name='" + name + '\'' +
                 ", likes=" + likes +
-                ", dislikes=" + dislikes +
                 ", submission=" + submission +
                 '}';
     }
@@ -34,14 +39,12 @@ public class Comment {
         this.submission = date;
         this.name = name;
         this.likes = 0;
-        this.dislikes = 0;
     }
-    public Comment(String comment, String name, Date submission, int likes, int dislikes) {
+    public Comment(String comment, String name, Date submission, int likes) {
         this.content = comment;
         this.submission = submission;
         this.name = name;
         this.likes = likes;
-        this.dislikes = dislikes;
     }
 
     public int getId() { return id; }
@@ -52,7 +55,7 @@ public class Comment {
         return content;
     }
 
-    public void content(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -72,14 +75,6 @@ public class Comment {
         this.likes = likes;
     }
 
-    public int getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(int dislikes) {
-        this.dislikes = dislikes;
-    }
-
     public String getName() {
         return name;
     }
@@ -88,4 +83,19 @@ public class Comment {
         this.name = name;
     }
 
+    public Date getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(Date submission) {
+        this.submission = submission;
+    }
+
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
+    }
 }

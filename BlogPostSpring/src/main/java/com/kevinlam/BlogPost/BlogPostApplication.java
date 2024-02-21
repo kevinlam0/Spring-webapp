@@ -15,8 +15,13 @@ public class BlogPostApplication {
 		ApplicationContext context = SpringApplication.run(BlogPostApplication.class, args);
 		ReplyService service = context.getBean(ReplyService.class);
 		CommentService commentService = context.getBean(CommentService.class);
+		Comment comment = commentService.getCommentFromID(1).get();
+		List<Reply> replies = comment.getReplies();
+		for (Reply reply: replies) {
+			System.out.println(reply);
+		}
 //		Reply reply = new Reply(comment, "This is the first reply", "Kevin");
-////		service.addReplyToComment(comment, reply);
+//		service.addReplyToComment(comment, reply);
 //		commentService.deleteCommentByID(3);
 
 //		List<Comment> comments = service.getAllComments();

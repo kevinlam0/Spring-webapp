@@ -1,6 +1,7 @@
 import React from "react";
 import {useEffect, useState} from "react";
 import { Comment } from "./Comment";
+import { ReplyList } from "./ReplyList";
 
 export const CommentList = () => {
 	const [comments, setComments] = useState([]);
@@ -9,7 +10,7 @@ export const CommentList = () => {
     fetch('http://localhost:8080/blogpost/comments')
       .then(response => response.json())
       .then(data => setComments(data))
-      .catch(error => console.error('Error fetching users:', error));
+      .catch(error => console.error('Error fetching comments:', error));
   }, []);
 
   const deleteItem = async (itemId, itemType) => {
@@ -40,6 +41,7 @@ export const CommentList = () => {
               />
             </li>
             <button onClick={() => deleteItem(comment.id, "comment")}>Delete</button>
+            <ReplyList reply_list={comment.replies}/>
           </div>
         ))
       }

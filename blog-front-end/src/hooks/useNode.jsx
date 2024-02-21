@@ -26,6 +26,19 @@ export const useNode = () => {
         catch(error) {console.error('Error deleting item: ', error);}
     }
 
-    return { addComment, deleteItem };
+    const addReply = async (comment_id, reply) => {
+        try {
+            const response = await fetch(`http://localhost:8080/blogpost/comments/${comment_id}/reply`, { 
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}, 
+                body: JSON.stringify(reply) 
+            });
+            if (!response.ok) { throw new Error('Network response was not ok'); }
+            console.log("Reply Creation successful");
+        }
+        catch (error) { console.error("Error creating reply: ", error); }
+    }
+
+    return { addComment, deleteItem, addReply };
     
 }

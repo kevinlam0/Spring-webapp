@@ -25,8 +25,9 @@ export const CommentSection = () => {
 
     const handleDeleteItem = async (itemId, itemType) => {
         await deleteItem(itemId, itemType);
-        const updatedComments = commentData.filter(comment => comment.id !== itemId);
-        setCommentData(updatedComments);
+        // const updatedComments = commentData.filter(comment => comment.id !== itemId);
+        // setCommentData(updatedComments);
+        fetchData();
     }
 
     const handleAddReply = async (comment_id, reply) => {

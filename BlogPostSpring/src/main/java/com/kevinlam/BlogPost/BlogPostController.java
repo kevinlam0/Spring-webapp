@@ -34,6 +34,7 @@ public class BlogPostController {
 
     @DeleteMapping("/comments")
     public void deleteComment(@RequestBody Map<String, String> request) {
+        System.out.println("Delete function is being called");
         int id = Integer.parseInt(request.get("id"));
         String itemType = request.get("type");
         try {

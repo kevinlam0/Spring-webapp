@@ -19,7 +19,7 @@ public class Comment {
     private int likes;
 
     private String name;
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
     @JsonManagedReference
     private List<Reply> replies;
 

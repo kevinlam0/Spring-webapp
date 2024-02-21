@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Table(name = "Comment")
@@ -14,7 +15,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String content;
-    private Date submission;
+    private LocalDateTime submission;
     private int likes;
 
     private String name;
@@ -34,13 +35,13 @@ public class Comment {
                 '}';
     }
 
-    public Comment(String comment, String name, Date date) {
+    public Comment(String comment, String name, LocalDateTime date) {
         this.content = comment;
         this.submission = date;
         this.name = name;
         this.likes = 0;
     }
-    public Comment(String comment, String name, Date submission, int likes) {
+    public Comment(String comment, String name, LocalDateTime submission, int likes) {
         this.content = comment;
         this.submission = submission;
         this.name = name;
@@ -59,13 +60,6 @@ public class Comment {
         this.content = content;
     }
 
-    public Date getDate() {
-        return submission;
-    }
-
-    public void setDate(Date date) {
-        this.submission = date;
-    }
 
     public int getLikes() {
         return likes;
@@ -83,11 +77,11 @@ public class Comment {
         this.name = name;
     }
 
-    public Date getSubmission() {
+    public LocalDateTime getSubmission() {
         return submission;
     }
 
-    public void setSubmission(Date submission) {
+    public void setSubmission(LocalDateTime submission) {
         this.submission = submission;
     }
 

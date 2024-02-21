@@ -2,7 +2,7 @@ import React from "react";
 import {useEffect, useState} from "react";
 import { Comment } from "./Comment";
 
-export const CommentList = ({ comments, handleDeleteItem, handleAddReply, handleAddLike }) => {
+export const CommentList = ({ comments, handleDeleteItem, handleAddReply, handleAddLike, handleUnlike }) => {
 	// const [comments, setComments] = useState([]);
 
   // useEffect(() => {
@@ -39,6 +39,7 @@ export const CommentList = ({ comments, handleDeleteItem, handleAddReply, handle
                 comment_obj = {comment}
                 handleAddReply={handleAddReply}
                 handleLiking={handleAddLike}
+                handleUnlike={handleUnlike}
               />
             </li>
             <button onClick={() => handleDeleteItem(comment.id, "comment")}>Delete</button>

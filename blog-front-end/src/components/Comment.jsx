@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { ReplyList } from './ReplyList';
 
-export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlike, handleDeleteItem }) => {
+export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlike, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [reply, setReply] = useState({
     content: "",
@@ -59,8 +59,15 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
           <button onClick={toggleReplyInput}>Cancel</button>
         </div>
       )}
+      <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
       {!showReplyInput && (<button onClick={toggleReplyInput}>Reply</button>)}
-      <ReplyList reply_list={comment_obj.replies} handleDeleteItem={handleDeleteItem}/>
+      <ReplyList 
+        reply_list={comment_obj.replies} 
+        handleDeleteItem={handleDeleteItem} 
+        handleReplyLike={handleReplyLike} 
+        comment_id={comment_obj.id}
+        handleUnReplyLike={handleUnReplyLike}
+      />
     </div>
   );
 };

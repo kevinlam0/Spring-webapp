@@ -62,7 +62,29 @@ export const useNode = () => {
         }
         catch (error) { console.error("Error unliking comment: ", error); }
     }
+    const addReplyLike = async (comment_id, reply_id) => {
+        try {
+            const response = await fetch(`http://localhost:8080/blogpost/comments/${comment_id}/reply/${reply_id}/like`, { 
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}
+            });
+            if (!response.ok) { throw new Error('Network response was not ok'); }
+            console.log("Like successful");
+        }
+        catch (error) { console.error("Error liking reply: ", error); }
+    }
 
-    return { addComment, deleteItem, addReply, addLike, unlike };
+    const unReplyLike = async (comment_id, reply_id) => {
+        try {
+            const response = await fetch(`http://localhost:8080/blogpost/comments/${comment_id}/reply/${reply_id}/unlike`, { 
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}
+            });
+            if (!response.ok) { throw new Error('Network response was not ok'); }
+            console.log("Unlike successful");
+        }
+        catch (error) { console.error("Error unliking comment: ", error); }
+    }
+    return { addComment, deleteItem, addReply, addLike, unlike, addReplyLike, unReplyLike };
     
 }

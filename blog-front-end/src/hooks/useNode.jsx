@@ -39,6 +39,18 @@ export const useNode = () => {
         catch (error) { console.error("Error creating reply: ", error); }
     }
 
-    return { addComment, deleteItem, addReply };
+    const addLike = async (comment_id) => {
+        try {
+            const response = await fetch(`http://localhost:8080/blogpost/comments/${comment_id}/like`, { 
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}
+            });
+            if (!response.ok) { throw new Error('Network response was not ok'); }
+            console.log("Like successful");
+        }
+        catch (error) { console.error("Error liking comment: ", error); }
+    }
+
+    return { addComment, deleteItem, addReply, addLike };
     
 }

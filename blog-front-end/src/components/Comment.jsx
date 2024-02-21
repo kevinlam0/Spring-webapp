@@ -1,16 +1,22 @@
 import React, {useState} from 'react';
 import { ReplyList } from './ReplyList';
 
-export const Comment = ({ comment_obj, handleAddReply }) => {
+export const Comment = ({ comment_obj, handleAddReply, handleLiking }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [reply, setReply] = useState({
     content: "",
     name: "anonymous"
   })
+  const [liked, setLiked] = useState(false);
+
   const isTextAreaDisabled = reply.content.trim().length === 0;
 
   const toggleReplyInput = () => {
     setShowReplyInput(prevState => !prevState);
+  };
+
+  const toggleLikebutton = () => {
+    setLiked(prevState => !prevState);
   };
 
   const handleReplyChange = (e) => {
@@ -25,9 +31,16 @@ export const Comment = ({ comment_obj, handleAddReply }) => {
     setReply(prevState => ({ ...prevState, ['content']: '' }))
   };
 
+  const handleLikeSubmit = (e) => {
+    e.preventDefault();
+    if (!liked) { handleLiking(comment_obj.id); }
+    toggleLikebutton();
+  }
+
   return (
     <div className="comment">
       <strong>{comment_obj.name}:</strong> {comment_obj.content} {comment_obj.submission} {comment_obj.likes}
+      <button onClick={handleLikeSubmit}>Like</button>
       {showReplyInput && (
         <div>
           <input type="text" value={reply.content} onChange={handleReplyChange} />
@@ -35,7 +48,6 @@ export const Comment = ({ comment_obj, handleAddReply }) => {
           <button onClick={toggleReplyInput}>Cancel</button>
         </div>
       )}
-      {/* <button onClick={() => deleteItem(comment_obj.id, "comment")}>Delete</button> */}
       {!showReplyInput && (<button onClick={toggleReplyInput}>Reply</button>)}
       <ReplyList reply_list={comment_obj.replies}/>
     </div>

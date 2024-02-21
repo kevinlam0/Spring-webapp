@@ -48,4 +48,9 @@ public class BlogPostController {
     public void addReply(@PathVariable("comment_id") int commentId, @RequestBody Reply reply) {
         replyService.addReplyToComment(commentId, reply);
     }
+
+    @PostMapping("/comments/{comment_id}/like")
+    public void addReply(@PathVariable("comment_id") int commentId) {
+        commentService.incrementLikes(commentId);
+    }
 }

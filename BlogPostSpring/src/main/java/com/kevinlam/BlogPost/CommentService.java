@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,4 +29,12 @@ public class CommentService {
     }
     public Optional<Comment> getCommentFromID(int id) {return db.findById(id);}
     public void deleteCommentByID(int id) { db.deleteById(id); }
+
+    public void incrementLikes(int commentId) {
+        Optional<Comment> optionalComment = db.findById(commentId);
+        if (optionalComment.isEmpty()) { throw new IllegalArgumentException("Cannot increment like from backend"); }
+        Comment comment = optionalComment.get();
+        comment.setLikes(comment.getLikes() + 1);
+        db.save(comment);
+    }
 }

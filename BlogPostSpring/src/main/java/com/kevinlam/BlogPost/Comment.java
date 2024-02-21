@@ -1,5 +1,7 @@
 package com.kevinlam.BlogPost;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -16,7 +18,8 @@ public class Comment {
     private int likes;
 
     private String name;
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JsonManagedReference
     private List<Reply> replies;
 
     public Comment() { }

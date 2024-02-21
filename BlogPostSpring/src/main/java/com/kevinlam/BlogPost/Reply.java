@@ -1,6 +1,7 @@
 package com.kevinlam.BlogPost;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -13,6 +14,7 @@ public class Reply {
 
     @ManyToOne
     @JoinColumn(name="comment_id")
+    @JsonBackReference
     private Comment comment;
 
     private String content;
@@ -57,5 +59,17 @@ public class Reply {
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    @Override
+    public String toString() {
+        return "Reply{" +
+                "id=" + id +
+                ", comment=" + comment.getId() +
+                ", content='" + content + '\'' +
+                ", name='" + name + '\'' +
+                ", submission=" + submission +
+                ", likes=" + likes +
+                '}';
     }
 }

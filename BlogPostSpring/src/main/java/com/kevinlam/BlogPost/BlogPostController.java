@@ -34,6 +34,7 @@ public class BlogPostController {
 
     @DeleteMapping("/comments")
     public void deleteComment(@RequestBody Map<String, String> request) {
+        System.out.println("Delete function is being called");
         int id = Integer.parseInt(request.get("id"));
         String itemType = request.get("type");
         try {
@@ -47,5 +48,15 @@ public class BlogPostController {
     @PostMapping("/comments/{comment_id}/reply")
     public void addReply(@PathVariable("comment_id") int commentId, @RequestBody Reply reply) {
         replyService.addReplyToComment(commentId, reply);
+    }
+
+    @PostMapping("/comments/{comment_id}/like")
+    public void addReply(@PathVariable("comment_id") int commentId) {
+        commentService.incrementLikes(commentId);
+    }
+
+    @PostMapping("/comments/{comment_id}/unlike")
+    public void subtractLike(@PathVariable("comment_id") int commentId) {
+        commentService.decrementLikes(commentId);
     }
 }

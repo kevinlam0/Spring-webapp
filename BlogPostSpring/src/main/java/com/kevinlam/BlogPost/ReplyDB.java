@@ -10,4 +10,7 @@ import java.util.List;
 public interface ReplyDB extends JpaRepository<Reply, Integer> {
     @Query(value = "SELECT * FROM Reply WHERE comment_id=?",nativeQuery = true)
     public List<Reply> findByComment(int id);
+
+    @Query(value = "DELETE FROM Reply WHERE id =?", nativeQuery = true)
+    public void deleteById(int id);
 }

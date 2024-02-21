@@ -5,7 +5,7 @@ import { useNode } from "../hooks/useNode";
 
 export const CommentSection = () => {
     const [commentData, setCommentData] = useState([]);
-    const { addComment, deleteItem, addReply } = useNode();
+    const { addComment, deleteItem, addReply, addLike, unlike } = useNode();
 
     const fetchData = async () => {
         await fetch('http://localhost:8080/blogpost/comments')
@@ -25,12 +25,22 @@ export const CommentSection = () => {
 
     const handleDeleteItem = async (itemId, itemType) => {
         await deleteItem(itemId, itemType);
-        const updatedComments = commentData.filter(comment => comment.id !== itemId);
-        setCommentData(updatedComments);
+        // const updatedComments = commentData.filter(comment => comment.id !== itemId);
+        // setCommentData(updatedComments);
+        fetchData();
     }
 
     const handleAddReply = async (comment_id, reply) => {
         await addReply(comment_id, reply);
+        fetchData();
+    }
+
+    const handleAddLike = async (comment_id) => {
+        await addLike(comment_id);
+        fetchData();
+    }
+    const handleUnlike = async (comment_id) => {
+        await unlike(comment_id);
         fetchData();
     }
 
@@ -40,6 +50,8 @@ export const CommentSection = () => {
                 comments={commentData}
                 handleDeleteItem={handleDeleteItem}
                 handleAddReply={handleAddReply}
+                handleAddLike={handleAddLike}
+                handleUnlike={handleUnlike}
             />
             <CommentForm 
                 handleAddComment ={handleAddComment}

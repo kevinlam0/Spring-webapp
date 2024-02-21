@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class Reply {
@@ -19,7 +20,7 @@ public class Reply {
 
     private String content;
     private String name;
-    private Date submission;
+    private LocalDateTime submission;
     private int likes;
 
     public Reply(Comment comment, String content, String name) {
@@ -45,11 +46,11 @@ public class Reply {
 
     public void setName(String name) { this.name = name; }
 
-    public Date getSubmission() {
+    public LocalDateTime getSubmission() {
         return submission;
     }
 
-    public void setSubmission(Date submission) {
+    public void setSubmission(LocalDateTime submission) {
         this.submission = submission;
     }
 

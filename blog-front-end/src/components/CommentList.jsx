@@ -1,5 +1,4 @@
 import React from "react";
-import {useEffect, useState} from "react";
 import { Comment } from "./Comment";
 
 export const CommentList = ({ comments, handleDeleteItem, handleAddReply, handleAddLike, handleUnlike, handleReplyLike, handleUnReplyLike }) => {

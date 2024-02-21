@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { ReplyList } from './ReplyList';
 
-export const Comment = ({ comment_obj, handleAddReply, handleLiking }) => {
+export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlike }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [reply, setReply] = useState({
     content: "",
@@ -37,10 +37,21 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking }) => {
     toggleLikebutton();
   }
 
+  const handleUnlikeSubmit = (e) => {
+    e.preventDefault();
+    if (liked) { handleUnlike(comment_obj.id); }
+    toggleLikebutton();
+  }
+
   return (
     <div className="comment">
-      <strong>{comment_obj.name}:</strong> {comment_obj.content} {comment_obj.submission} {comment_obj.likes}
-      <button onClick={handleLikeSubmit}>Like</button>
+      <strong>{comment_obj.name}:</strong> {comment_obj.content} {comment_obj.submission.slice(0, 10)} {comment_obj.likes}
+      {
+        liked ? 
+          (<button onClick={handleUnlikeSubmit} disabled={!liked}>Unlike</button>)
+        :
+          (<button onClick={handleLikeSubmit} disabled={liked}>Like</button>)
+      }
       {showReplyInput && (
         <div>
           <input type="text" value={reply.content} onChange={handleReplyChange} />

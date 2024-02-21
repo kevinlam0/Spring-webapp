@@ -1,15 +1,19 @@
 import { Reply } from "./Reply";
 
-export const ReplyList = ({reply_list, handleDeleteItem}) => {
+export const ReplyList = ({reply_list, handleDeleteItem, handleReplyLike, handleUnReplyLike}) => {
     return (
         <ul>
             { 
                 reply_list.map((reply) => ( 
                     <div key={reply.id}>
                         <li>
-                            <Reply reply_object={reply}/>
+                            <Reply 
+                                reply_object={reply} 
+                                handleDeleteItem={handleDeleteItem} 
+                                handleReplyLike={handleReplyLike}
+                                handleUnReplyLike={handleUnReplyLike}
+                            />
                         </li>
-                        <button onClick={() => handleDeleteItem(reply.id, "reply")}>Delete Reply</button>
                     </div>
                 )) 
             }

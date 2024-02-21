@@ -2,15 +2,15 @@ import React from "react";
 import {useEffect, useState} from "react";
 import { Comment } from "./Comment";
 
-export const CommentList = () => {
-	const [comments, setComments] = useState([]);
+export const CommentList = ({ comments, handleDeleteItem }) => {
+	// const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    fetch('http://localhost:8080/blogpost/comments')
-      .then(response => response.json())
-      .then(data => setComments(data))
-      .catch(error => console.error('Error fetching comments:', error));
-  }, []);
+  // useEffect(() => {
+  //   fetch('http://localhost:8080/blogpost/comments')
+  //     .then(response => response.json())
+  //     .then(data => setComments(data))
+  //     .catch(error => console.error('Error fetching comments:', error));
+  // }, []);
 
   // const deleteItem = async (itemId, itemType) => {
   //   try {
@@ -24,6 +24,9 @@ export const CommentList = () => {
   //     console.log("Comment Deletion successful");
   //   }
   //   catch(error) {console.error('Error deleting item: ', error);};
+
+    // const updatedComments = comments.filter(comment => comment.id !== itemId);
+    // setComments(updatedComments);
   // }
 
 	return (
@@ -35,6 +38,7 @@ export const CommentList = () => {
               <Comment 
                 comment_obj = {comment}
               />
+              <button onClick={() => handleDeleteItem(comment.id, "comment")}>Delete</button>
             </li>
           </div>
         ))

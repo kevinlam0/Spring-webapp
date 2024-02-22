@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
-
+import { useUser } from '../context/UserContext';
 export const CommentForm = ({ handleAddComment }) => {
+
+    const { user } = useUser();
     const [comment, setComment] = useState({
         content: "",
-        name: "anonymous"
+        name: user
     })
     const isTextAreaDisabled = comment.content.trim().length === 0;
 

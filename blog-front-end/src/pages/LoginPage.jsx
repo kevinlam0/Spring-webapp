@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
+import NavBar from '../NavBar';
 
 export const LoginPage = () => {
-    const navigate = useNavigate();
-    const goToHomePage = () => {
-        navigate("/")
-    }
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const { handleLogin, handleRegister } = useUser();
+
+  const handleLoginSubmit = () => {
+    handleLogin( username, password );
+  };
+
+  const handleRegisterAccount = () => {
+    handleRegister( username, password )
+  }
+
   return (
     <div>
+      <NavBar/>
       <h2>Login Page</h2>
-      {/* Your login form */}
-      <button onClick={goToHomePage}>Click me</button>
+      <div>
+        <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <button onClick={handleLoginSubmit}>Login</button>
+        <button onClick={handleRegisterAccount}>Register</button>
+      </div>
     </div>
   );
 }

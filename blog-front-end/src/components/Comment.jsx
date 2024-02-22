@@ -57,7 +57,7 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
 
 
 
-      { comment_obj.name === user  && comment_obj.name !== "Guest" &&
+      { comment_obj.name.toUpperCase() === user.toUpperCase() && comment_obj.name !== "Guest" &&
           <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
       }
 

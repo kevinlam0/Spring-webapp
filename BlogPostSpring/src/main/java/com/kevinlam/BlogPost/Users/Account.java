@@ -11,10 +11,16 @@ public class Account {
     @Column(unique = true)
     private String username;
     private String password;
+    private String userLower;
     public Account() {}
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+    public Account(String username, String password, String userLower) {
+        this.username = username;
+        this.password = password;
+        this.userLower = userLower;
     }
 
     public int getId() {
@@ -39,5 +45,13 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserLower() {
+        return userLower;
+    }
+
+    public void setUserLower(String userLower) {
+        this.userLower = userLower;
     }
 }

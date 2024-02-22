@@ -32,6 +32,9 @@ export const useAccountActions = () => {
                 if (response.status === 437) {
                     alert("This username is already taken")
                 }
+                if (response.status === 438) {
+                    alert("Username cannot be longer than 20 characters.")
+                }
                 return false;
             }
             return true;

@@ -1,5 +1,6 @@
 package com.kevinlam.BlogPost.Users;
 
+import com.kevinlam.BlogPost.Exceptions.InvalidUserNameException;
 import com.kevinlam.BlogPost.Exceptions.PasswordIncorrectException;
 import com.kevinlam.BlogPost.Exceptions.UserAlreadyExistsException;
 import com.kevinlam.BlogPost.Exceptions.UserNotFoundException;
@@ -19,6 +20,7 @@ public class AccountController {
     public ResponseEntity<?> registerUser(@RequestBody Account account) {
         try {accountService.registerAccount(account);}
         catch (UserAlreadyExistsException e) { return ResponseEntity.status(437).body("Username is already taken"); }
+        catch (InvalidUserNameException e) { return ResponseEntity.status(438).body(e.getMessage()); }
         return ResponseEntity.ok("User registered successfully");
     }
     @PostMapping("/login")

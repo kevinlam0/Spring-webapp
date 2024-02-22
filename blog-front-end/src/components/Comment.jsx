@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import { ReplyList } from './ReplyList';
+import { useUser } from '../context/UserContext';
 
 export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlike, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
+  const { user } = useUser();
   const [reply, setReply] = useState({
     content: "",
-    name: "anonymous"
+    name: user
   })
   const [liked, setLiked] = useState(false);
 
@@ -52,7 +54,16 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
         :
           (<button onClick={handleLikeSubmit} disabled={liked}>Like</button>)
       }
-      <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
+
+
+
+      { comment_obj.name === user  && comment_obj.name !== "Guest" &&
+          <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
+      }
+
+
+
+
       {showReplyInput && (
         <div>
           <input type="text" value={reply.content} onChange={handleReplyChange} />

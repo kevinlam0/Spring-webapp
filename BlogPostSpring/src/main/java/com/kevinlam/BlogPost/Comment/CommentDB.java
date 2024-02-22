@@ -1,12 +1,9 @@
-package com.kevinlam.BlogPost;
+package com.kevinlam.BlogPost.Comment;
 
-import org.hibernate.annotations.processing.SQL;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 @Repository
 public interface CommentDB extends JpaRepository<Comment, Integer> {

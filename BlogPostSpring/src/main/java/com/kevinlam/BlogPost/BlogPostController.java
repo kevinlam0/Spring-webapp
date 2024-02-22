@@ -1,12 +1,12 @@
 package com.kevinlam.BlogPost;
 
+import com.kevinlam.BlogPost.Comment.Comment;
+import com.kevinlam.BlogPost.Comment.CommentService;
+import com.kevinlam.BlogPost.Reply.Reply;
+import com.kevinlam.BlogPost.Reply.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 

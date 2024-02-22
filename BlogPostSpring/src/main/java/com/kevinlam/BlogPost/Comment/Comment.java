@@ -5,6 +5,7 @@ import com.kevinlam.BlogPost.Reply.Reply;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class Comment {
     private LocalDateTime submission;
     private int likes;
 
+    @Column(name = "liked_by", columnDefinition = "text[]")
+    private List<String> likedBy;
     private String name;
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
     @JsonManagedReference
@@ -93,4 +96,18 @@ public class Comment {
         this.replies = replies;
     }
     public void sortRepliesByDate() {this.replies.sort(Comparator.comparing(Reply::getSubmission));}
+
+    public List<String> getLikedBy() {
+        return likedBy;
+    }
+
+    public void setLikedBy(List<String> likedBy) {
+        this.likedBy = likedBy;
+    }
+
+    public void addUserToLikedBy(String username) {
+        if (this.likedBy == null) { this.likedBy = new ArrayList<>(); }
+        if (this.likedBy.contains(username)) {throw new IllegalArgumentException("You cannot like the comment twice");}
+        this.likedBy.add(username);
+    }
 }

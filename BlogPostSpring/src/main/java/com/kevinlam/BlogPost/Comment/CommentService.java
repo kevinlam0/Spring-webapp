@@ -41,10 +41,11 @@ public class CommentService {
     public Optional<Comment> getCommentFromID(int id) {return db.findById(id);}
     public void deleteCommentByID(int id) { db.deleteById(id); }
 
-    public void incrementLikes(int commentId) {
+    public void incrementLikes(int commentId, String username) {
         Optional<Comment> optionalComment = db.findById(commentId);
         if (optionalComment.isEmpty()) { throw new IllegalArgumentException("Cannot increment like from backend"); }
         Comment comment = optionalComment.get();
+        comment.addUserToLikedBy(username.toLowerCase());
         comment.setLikes(comment.getLikes() + 1);
         db.save(comment);
     }

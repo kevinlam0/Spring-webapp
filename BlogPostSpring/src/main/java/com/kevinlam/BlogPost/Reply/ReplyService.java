@@ -51,19 +51,27 @@ public class ReplyService {
         replyDB.delete(reply);
     }
 
-    public void incrementLike(int replyID) {
+    public void incrementLike(int replyID, String username) {
+        if (username.equalsIgnoreCase("guest")) {
+            throw new IllegalArgumentException("Cannot increment like as a guest");
+        }
         Optional<Reply> optionalReply = replyDB.findById(replyID);
         if (optionalReply.isEmpty()) { throw new IllegalArgumentException("Cannot increment reply like from backend"); }
         Reply reply = optionalReply.get();
+        reply.addUserToLikedBy(username.toLowerCase());
         reply.setLikes(reply.getLikes() + 1);
         replyDB.save(reply);
-
     }
 
-    public void decrementLike(int replyID) {
+    public void decrementLike(int replyID, String username) {
+        if (username.equalsIgnoreCase("guest")) {
+            throw new IllegalArgumentException("Cannot decrement like as a guest");
+        }
+
         Optional<Reply> optionalReply = replyDB.findById(replyID);
         if (optionalReply.isEmpty()) { throw new IllegalArgumentException("Cannot decrement reply like from backend"); }
         Reply reply = optionalReply.get();
+        reply.removeUserFromLikedBy(username.toLowerCase());
         reply.setLikes(reply.getLikes() - 1);
         replyDB.save(reply);
     }

@@ -6,6 +6,8 @@ import com.kevinlam.BlogPost.Comment.Comment;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Reply {
@@ -18,6 +20,8 @@ public class Reply {
     @JsonBackReference
     private Comment comment;
 
+    @Column(name = "liked_by", columnDefinition = "text[]")
+    private List<String> likedBy;
     private String content;
     private String name;
     private LocalDateTime submission;
@@ -60,6 +64,26 @@ public class Reply {
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    public List<String> getLikedBy() {
+        return likedBy;
+    }
+
+    public void setLikedBy(List<String> likedBy) {
+        this.likedBy = likedBy;
+    }
+
+    public void addUserToLikedBy(String username) {
+        if (this.likedBy == null) { this.likedBy = new ArrayList<>(); }
+        if (this.likedBy.contains(username)) {throw new IllegalArgumentException("You cannot like the comment twice");}
+        this.likedBy.add(username);
+    }
+    public void removeUserFromLikedBy(String username) {
+        if (this.likedBy == null || !this.likedBy.contains(username)) {
+            throw new IllegalArgumentException("You cannot remove like if you aren't in a liked user.");
+        }
+        this.likedBy.remove(username);
     }
 
     @Override

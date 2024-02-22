@@ -42,6 +42,10 @@ public class CommentService {
     public void deleteCommentByID(int id) { db.deleteById(id); }
 
     public void incrementLikes(int commentId, String username) {
+        if (username.equalsIgnoreCase("guest")) {
+            throw new IllegalArgumentException("Cannot increment like as a guest");
+        }
+
         Optional<Comment> optionalComment = db.findById(commentId);
         if (optionalComment.isEmpty()) { throw new IllegalArgumentException("Cannot increment like from backend"); }
         Comment comment = optionalComment.get();
@@ -50,6 +54,10 @@ public class CommentService {
         db.save(comment);
     }
     public void decrementLikes(int commentId, String username) {
+        if (username.equalsIgnoreCase("guest")) {
+            throw new IllegalArgumentException("Cannot decrement like as a guest");
+        }
+
         Optional<Comment> optionalComment = db.findById(commentId);
         if (optionalComment.isEmpty()) { throw new IllegalArgumentException("Cannot decrement like from backend"); }
         Comment comment = optionalComment.get();

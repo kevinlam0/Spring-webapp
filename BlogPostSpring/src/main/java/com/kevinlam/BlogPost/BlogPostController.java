@@ -52,18 +52,18 @@ public class BlogPostController {
     public void addCommentLike(@PathVariable("comment_id") int commentId, @PathVariable("username") String username) {
         commentService.incrementLikes(commentId, username);
     }
-    @PostMapping("/comments/{comment_id}/reply/{reply_id}/like")
-    public void addReplyLike(@PathVariable("reply_id") int replyID) {
-        replyService.incrementLike(replyID);
-    }
 
     @PostMapping("/comments/{comment_id}/unlike/{username}")
     public void subtractLike(@PathVariable("comment_id") int commentId, @PathVariable("username") String username) {
         commentService.decrementLikes(commentId, username);
     }
 
-    @PostMapping("/comments/{comment_id}/reply/{reply_id}/unlike")
-    public void subtractReplyLike(@PathVariable("reply_id") int replyID) {
-        replyService.decrementLike(replyID);
+    @PostMapping("/comments/{comment_id}/reply/{reply_id}/like/{username}")
+    public void addReplyLike(@PathVariable("reply_id") int replyID, @PathVariable("username") String username) {
+        replyService.incrementLike(replyID, username);
+    }
+    @PostMapping("/comments/{comment_id}/reply/{reply_id}/unlike/{username}")
+    public void subtractReplyLike(@PathVariable("reply_id") int replyID, @PathVariable("username") String username) {
+        replyService.decrementLike(replyID, username);
     }
 }

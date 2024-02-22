@@ -1,10 +1,10 @@
-package com.kevinlam.BlogPost;
+package com.kevinlam.BlogPost.Reply;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.kevinlam.BlogPost.Comment.Comment;
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Entity

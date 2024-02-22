@@ -1,10 +1,9 @@
-package com.kevinlam.BlogPost;
+package com.kevinlam.BlogPost.Comment;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.kevinlam.BlogPost.Reply.Reply;
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;

@@ -25,9 +25,9 @@ public class BlogPostController {
         return commentService.getAllComments();
     }
 
-    @PostMapping("/comments")
-    public void addComment(@RequestBody Comment c) {
-        commentService.addComment(c);
+    @PostMapping("/comments/{username}")
+    public void addComment(@RequestBody Comment c, @PathVariable("username") String username ) {
+        commentService.addComment(c, username);
     }
 
     @DeleteMapping("/comments")

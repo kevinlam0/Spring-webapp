@@ -9,10 +9,14 @@ export const CommentForm = ({ handleAddComment }) => {
     })
     const isTextAreaDisabled = comment.content.trim().length === 0;
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        handleAddComment(comment);
-        setComment(prevState => ({...prevState, ['content']: ""}));
+    const handleSubmit = (e) => {
+        if (user === "Guest") {alert("You cannot add comments as a guest. Please log in!")}
+        else {
+            e.preventDefault();
+            handleAddComment(comment, user);
+            setComment(prevState => ({...prevState, ['content']: ""}));
+        }
+        
     }
 
     const handleChange = (e) => {

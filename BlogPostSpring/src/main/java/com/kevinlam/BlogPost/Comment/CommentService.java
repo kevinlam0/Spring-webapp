@@ -21,7 +21,8 @@ public class CommentService {
         }
         return res;
     }
-    public void addComment(Comment c) {
+    public void addComment(Comment c, String username) {
+        if (username.equalsIgnoreCase("guest")) {throw new IllegalArgumentException("Guest cannot add comment");}
         if (c.getContent().trim().equals("")) {throw new IllegalArgumentException("Comment cannot be blank");}
         setCurrentTime(c);
         db.save(c);

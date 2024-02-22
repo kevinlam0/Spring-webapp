@@ -1,27 +1,22 @@
 import './App.css';
-import {useEffect, useState} from "react";
-import { Header } from "./components/Header";
-import { OpeningPictures } from "./components/OpeningPictures";
-function App() {
-  const [comments, setComments] = useState([]);
+import { BrowserRouter, Routes, Route,  } from "react-router-dom";
+import { BlogPost } from './pages/BlogPost';
+import { LoginPage } from './pages/LoginPage';
+import { UserProvider } from './context/UserContext';
 
-  useEffect(() => {
-    fetch('http://localhost:8080/blogpost/comments')
-      .then(response => response.json())
-      .then(data => setComments(data))
-      .catch(error => console.error('Error fetching users:', error));
-  }, []);
+function App() {
 
   return (
-    <div>
-      <Header/>
-      <OpeningPictures/>
-      <ul>
-        {comments.map(comment => (
-            <li key={comment.id}>{comment.comment}</li>
-        ))}
-      </ul>
-    </div>
+    // <UserProvider>
+      <BrowserRouter>
+        <UserProvider>
+          <Routes>
+              <Route exact path="/" element={<BlogPost/>} />
+              <Route path="/login" element={<LoginPage/>} />  
+            </Routes>
+        </UserProvider>
+      </BrowserRouter>
+    // </UserProvider>
   );
 }
 

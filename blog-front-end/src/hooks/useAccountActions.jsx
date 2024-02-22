@@ -53,6 +53,7 @@ export const useAccountActions = () => {
         catch (error) { console.error("Error registering account: ", error); }
         
     }
+    
     return { login, register }
 
 

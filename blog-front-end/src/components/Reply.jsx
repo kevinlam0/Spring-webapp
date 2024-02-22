@@ -33,10 +33,10 @@ export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLi
         <div>
             <strong>{reply_object.name}:</strong> {reply_object.content} {reply_object.submission.slice(0, 10)} {reply_object.likes}
             {
-                liked ? 
-                (<button onClick={handleUnlikeSubmit} disabled={!liked}>Unlike</button>)
+                liked && user !== "Guest"? 
+                (<button onClick={handleUnlikeSubmit} >Unlike</button>)
                 :
-                (<button onClick={handleLikeSubmit} disabled={liked}>Like</button>)
+                (<button onClick={handleLikeSubmit} >Like</button>)
             }
 
             { reply_object.name === user  && reply_object.name !== "Guest" &&

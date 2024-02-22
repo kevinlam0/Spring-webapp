@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +20,9 @@ public class ReplyService {
     CommentDB commentDB;
 
     public List<Reply> getAllReplies(Comment c) {
-        return replyDB.findByComment(c.getId());
+        List<Reply> res = replyDB.findByComment(c.getId());
+        res.sort(Comparator.comparing(Reply::getSubmission));
+        return res;
     }
     public void addReplyToComment(int commentID, Reply r) {
         Optional<Comment> optionalComment = commentDB.findById(commentID);

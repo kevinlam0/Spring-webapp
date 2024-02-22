@@ -17,8 +17,11 @@ public class CommentService {
     CommentDB db;
     public List<Comment> getAllComments() {
         List<Comment> res = db.findAll();
-        Collections.sort(res, Comparator.comparing(Comment::getSubmission));
+        res.sort(Comparator.comparing(Comment::getSubmission));
         Collections.reverse(res);
+        for (Comment c: res) {
+            c.sortRepliesByDate();
+        }
         return res;
     }
     public void addComment(Comment c) {

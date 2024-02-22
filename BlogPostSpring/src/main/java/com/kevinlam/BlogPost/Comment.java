@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Table(name = "Comment")
@@ -92,4 +93,5 @@ public class Comment {
     public void setReplies(List<Reply> replies) {
         this.replies = replies;
     }
+    public void sortRepliesByDate() {this.replies.sort(Comparator.comparing(Reply::getSubmission));}
 }

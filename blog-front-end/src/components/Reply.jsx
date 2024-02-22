@@ -2,22 +2,31 @@ import React, { useState } from "react";
 import { useUser } from '../context/UserContext';
 
 export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
-    const [liked, setLiked] = useState(false);
+    
     const { user } = useUser();
+    const [likedBy, setLikedBy] = useState(reply_object.likedBy || []);
     const toggleLikebutton = () => {
         setLiked(prevState => !prevState);
       };
+    const [liked, setLiked] = useState(likedBy.includes(user.toLowerCase()));
 
     const handleLikeSubmit = (e) => {
+      if (user === "Guest") {alert("You cannot like replies as a guest please sign in!")}
+      else {
         e.preventDefault();
-        if (!liked) { handleReplyLike(comment_id, reply_object.id); }
+        if (!liked) { handleReplyLike(comment_id, reply_object.id, user); }
         toggleLikebutton();
       }
+        
+    }
     
       const handleUnlikeSubmit = (e) => {
-        e.preventDefault();
-        if (liked) { handleUnReplyLike(comment_id, reply_object.id); }
-        toggleLikebutton();
+        if (user === "Guest") {alert("You cannot unlike replies as a guest please sign in!")}
+        else {
+          e.preventDefault();
+          if (liked) { handleUnReplyLike(comment_id, reply_object.id, user); }
+          toggleLikebutton();
+        }
       }
 
     return (

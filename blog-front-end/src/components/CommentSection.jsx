@@ -38,12 +38,12 @@ export const CommentSection = () => {
         await unlike(comment_id, username);
         fetchData();
     }
-    const handleReplyLike = async (comment_id, reply_id) => {
-        await addReplyLike(comment_id, reply_id);
+    const handleReplyLike = async (comment_id, reply_id, username) => {
+        await addReplyLike(comment_id, reply_id, username);
         fetchData();
     }
-    const handleUnReplyLike = async (comment_id, reply_id) => {
-        await unReplyLike(comment_id, reply_id);
+    const handleUnReplyLike = async (comment_id, reply_id, username) => {
+        await unReplyLike(comment_id, reply_id, username);
         fetchData();
     }
 

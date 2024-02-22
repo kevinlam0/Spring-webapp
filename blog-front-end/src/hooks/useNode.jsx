@@ -64,9 +64,9 @@ export const useNode = () => {
         catch (error) { console.error("Error unliking comment: ", error); }
     }
 
-    const addReplyLike = async (comment_id, reply_id) => {
+    const addReplyLike = async (comment_id, reply_id, username) => {
         try {
-            const response = await fetch(`http://localhost:8080/blogpost/comments/${comment_id}/reply/${reply_id}/like`, { 
+            const response = await fetch(`http://localhost:8080/blogpost/comments/${comment_id}/reply/${reply_id}/like/${username}`, { 
                 method: 'POST', 
                 headers: {'Content-Type': 'application/json'}
             });
@@ -76,9 +76,9 @@ export const useNode = () => {
         catch (error) { console.error("Error liking reply: ", error); }
     }
 
-    const unReplyLike = async (comment_id, reply_id) => {
+    const unReplyLike = async (comment_id, reply_id, username) => {
         try {
-            const response = await fetch(`http://localhost:8080/blogpost/comments/${comment_id}/reply/${reply_id}/unlike`, { 
+            const response = await fetch(`http://localhost:8080/blogpost/comments/${comment_id}/reply/${reply_id}/unlike/${username}`, { 
                 method: 'POST', 
                 headers: {'Content-Type': 'application/json'}
             });

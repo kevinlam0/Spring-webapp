@@ -14,7 +14,10 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
   
   const isTextAreaDisabled = reply.content.trim().length === 0;
 
-  const toggleReplyInput = () => { setShowReplyInput(prevState => !prevState); };
+  const toggleReplyInput = () => { 
+    if (user === "Guest") { alert("You may not reply to comments as a guest please login first!")}
+    else {setShowReplyInput(prevState => !prevState); }
+  };
 
   const toggleLikebutton = () => { setLiked(prevState => !prevState); };
 
@@ -24,22 +27,31 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
 }
 
   const handleReplySubmit = (e) => {
-    e.preventDefault();
-    handleAddReply(comment_obj.id, reply);
-    setShowReplyInput(false);
-    setReply(prevState => ({ ...prevState, ['content']: '' }))
+    if (user === "Guest") { alert("You may not reply to comments as a guest please login first!")}
+    else {
+      e.preventDefault();
+      handleAddReply(comment_obj.id, reply);
+      setShowReplyInput(false);
+      setReply(prevState => ({ ...prevState, ['content']: '' }))
+    }
   };
 
   const handleLikeSubmit = (e) => {
-    e.preventDefault();
-    if (!liked) { handleLiking(comment_obj.id, user); }
-    toggleLikebutton();
+    if (user === "Guest") { alert("You may not like comments as a guest please login first!")}
+    else {
+      e.preventDefault();
+      if (!liked) { handleLiking(comment_obj.id, user); }
+      toggleLikebutton();
+    }
   }
 
   const handleUnlikeSubmit = (e) => {
-    e.preventDefault();
-    if (liked) { handleUnlike(comment_obj.id, user); }
-    toggleLikebutton();
+    if (user === "Guest") { alert("You may not unlike comments as a guest please login first!")}
+    else { 
+      e.preventDefault();
+      if (liked) { handleUnlike(comment_obj.id, user); }
+      toggleLikebutton();
+    }
   }
 
   return (

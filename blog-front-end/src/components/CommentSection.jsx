@@ -21,31 +21,27 @@ export const CommentSection = () => {
     const handleAddComment = async (comment) => {
         await addComment(comment);
         fetchData();
-    };
-
+    }
     const handleDeleteItem = async (itemId, itemType) => {
         await deleteItem(itemId, itemType);
         fetchData();
     }
-
     const handleAddReply = async (comment_id, reply) => {
         await addReply(comment_id, reply);
         fetchData();
     }
-
-    const handleAddLike = async (comment_id) => {
-        await addLike(comment_id);
+    const handleAddLike = async (comment_id, username) => {
+        await addLike(comment_id, username);
         fetchData();
     }
-    const handleUnlike = async (comment_id) => {
-        await unlike(comment_id);
+    const handleUnlike = async (comment_id, username) => {
+        await unlike(comment_id, username);
         fetchData();
     }
     const handleReplyLike = async (comment_id, reply_id) => {
         await addReplyLike(comment_id, reply_id);
         fetchData();
     }
-
     const handleUnReplyLike = async (comment_id, reply_id) => {
         await unReplyLike(comment_id, reply_id);
         fetchData();

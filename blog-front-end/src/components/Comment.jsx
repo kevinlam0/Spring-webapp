@@ -5,21 +5,18 @@ import { useUser } from '../context/UserContext';
 export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlike, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
   const { user } = useUser();
+  const [likedBy, setLikedBy] = useState(comment_obj.likedBy || []);
   const [reply, setReply] = useState({
     content: "",
     name: user
   })
-  const [liked, setLiked] = useState(false);
-
+  const [liked, setLiked] = useState(likedBy.includes(user.toLowerCase()));
+  
   const isTextAreaDisabled = reply.content.trim().length === 0;
 
-  const toggleReplyInput = () => {
-    setShowReplyInput(prevState => !prevState);
-  };
+  const toggleReplyInput = () => { setShowReplyInput(prevState => !prevState); };
 
-  const toggleLikebutton = () => {
-    setLiked(prevState => !prevState);
-  };
+  const toggleLikebutton = () => { setLiked(prevState => !prevState); };
 
   const handleReplyChange = (e) => {
     const { value } = e.target;
@@ -35,13 +32,13 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
 
   const handleLikeSubmit = (e) => {
     e.preventDefault();
-    if (!liked) { handleLiking(comment_obj.id); }
+    if (!liked) { handleLiking(comment_obj.id, user); }
     toggleLikebutton();
   }
 
   const handleUnlikeSubmit = (e) => {
     e.preventDefault();
-    if (liked) { handleUnlike(comment_obj.id); }
+    if (liked) { handleUnlike(comment_obj.id, user); }
     toggleLikebutton();
   }
 
@@ -55,14 +52,9 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
           (<button onClick={handleLikeSubmit} disabled={liked}>Like</button>)
       }
 
-
-
       { comment_obj.name.toUpperCase() === user.toUpperCase() && comment_obj.name !== "Guest" &&
-          <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
+        <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
       }
-
-
-
 
       {showReplyInput && (
         <div>

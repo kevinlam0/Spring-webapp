@@ -27,17 +27,6 @@ public class Comment {
     private List<Reply> replies;
 
     public Comment() { }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "comment='" + content + '\'' +
-                ", name='" + name + '\'' +
-                ", likes=" + likes +
-                ", submission=" + submission +
-                '}';
-    }
-
     public Comment(String comment, String name, LocalDateTime date) {
         this.content = comment;
         this.submission = date;
@@ -49,6 +38,16 @@ public class Comment {
         this.submission = submission;
         this.name = name;
         this.likes = likes;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "comment='" + content + '\'' +
+                ", name='" + name + '\'' +
+                ", likes=" + likes +
+                ", submission=" + submission +
+                '}';
     }
 
     public int getId() { return id; }

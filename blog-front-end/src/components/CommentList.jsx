@@ -44,8 +44,6 @@ export const CommentList = ({ comments, handleDeleteItem, handleAddReply, handle
                 handleUnReplyLike={handleUnReplyLike}
               />
             </li>
-            {/* <button onClick={() => handleDeleteItem(comment.id, "comment")}>Delete Comment</button> */}
-            {/* <button onClick={() => handleAddReply(comment.id, "comment")}>Reply</button> */}
           </div>
         ))
       }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import NavBar from '../NavBar';
 
 export const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -17,6 +18,7 @@ export const LoginPage = () => {
 
   return (
     <div>
+      <NavBar/>
       <h2>Login Page</h2>
       <div>
         <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />

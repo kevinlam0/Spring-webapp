@@ -58,10 +58,10 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
     <div className="comment">
       <strong>{comment_obj.name}:</strong> {comment_obj.content} {comment_obj.submission.slice(0, 10)} {comment_obj.likes}
       {
-        liked ? 
-          (<button onClick={handleUnlikeSubmit} disabled={!liked}>Unlike</button>)
+        liked && user !== "Guest"? 
+          (<button onClick={handleUnlikeSubmit} >Unlike</button>)
         :
-          (<button onClick={handleLikeSubmit} disabled={liked}>Like</button>)
+          (<button onClick={handleLikeSubmit} >Like</button>)
       }
 
       { comment_obj.name.toUpperCase() === user.toUpperCase() && comment_obj.name !== "Guest" &&

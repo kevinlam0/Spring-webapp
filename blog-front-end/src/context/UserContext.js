@@ -18,8 +18,8 @@ export const UserProvider = ({ children }) => {
         }
     }
 
-    const logout = () => {
-        setUser(null);
+    const handleLogout = async () => {
+        setUser("Guest");
     }
 
     const handleRegister = async (username, password) => {
@@ -32,7 +32,7 @@ export const UserProvider = ({ children }) => {
     }
 
     return (
-        <UserContext.Provider value={{ user, setUser, handleLogin, handleRegister }}>
+        <UserContext.Provider value={{ user, setUser, handleLogout, handleLogin, handleRegister }}>
             {children}
         </UserContext.Provider>
     )

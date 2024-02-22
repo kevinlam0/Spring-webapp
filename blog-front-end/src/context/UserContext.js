@@ -6,7 +6,7 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState("Guest");
-    const { login } = useAccountActions();
+    const { login, register } = useAccountActions();
     const navigate = useNavigate();
 
     const handleLogin = async (username, password) => {
@@ -22,12 +22,17 @@ export const UserProvider = ({ children }) => {
         setUser(null);
     }
 
-    const register = (userData) => {
-
+    const handleRegister = async (username, password) => {
+        const success = await register(username, password)
+        if (success) {
+            console.log("Registering account successful");
+            setUser(username);
+            navigate("/")
+        }
     }
 
     return (
-        <UserContext.Provider value={{ user, setUser, handleLogin }}>
+        <UserContext.Provider value={{ user, setUser, handleLogin, handleRegister }}>
             {children}
         </UserContext.Provider>
     )

@@ -6,15 +6,15 @@ import NavBar from '../NavBar';
 export const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-  const { handleLogin } = useUser();
-  const goToHomePage = () => {
-      navigate("/")
-  }
+  const { handleLogin, handleRegister } = useUser();
 
   const handleLoginSubmit = () => {
     handleLogin( username, password );
   };
+
+  const handleRegisterAccount = () => {
+    handleRegister( username, password )
+  }
 
   return (
     <div>
@@ -24,8 +24,8 @@ export const LoginPage = () => {
         <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <button onClick={handleLoginSubmit}>Login</button>
+        <button onClick={handleRegisterAccount}>Register</button>
       </div>
-      <button onClick={goToHomePage}>Click me</button>
     </div>
   );
 }

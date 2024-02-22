@@ -20,5 +20,23 @@ export const useAccountActions = () => {
         }
         catch (error) { console.error("Error creating comment: ", error); }
     }
-    return { login }
+
+    const register = async ( username, password ) => {
+        try {
+            const response = await fetch('http://localhost:8080/blogpost/account/register', { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({ username: username, password: password })
+            });
+            if (!response.ok) { 
+                return false;
+            }
+            return true;
+        }
+        catch (error) { console.error("Error registering account: ", error); }
+        
+    }
+    return { login, register }
+
+
 }

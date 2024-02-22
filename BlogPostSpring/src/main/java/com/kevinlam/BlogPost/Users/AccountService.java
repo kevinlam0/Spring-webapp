@@ -16,7 +16,6 @@ public class AccountService {
         account.setUserLower(account.getUsername().toLowerCase());
         if (accountDB.findByUserLower(account.getUserLower()) != null || account.getUserLower().equals("guest")) { throw new UserAlreadyExistsException(); }
         account.setPassword(PasswordEncoder.hashPassword(account.getPassword()));
-        account.setUsername(account.getUsername());
         accountDB.save(account);
     }
 

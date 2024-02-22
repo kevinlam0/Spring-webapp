@@ -24,8 +24,8 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Account account) {
         try {accountService.checkLoginCredentials(account.getUsername(), account.getPassword());}
-        catch (UserNotFoundException e) { return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); }
-        catch (PasswordIncorrectException e) { return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); }
+        catch (UserNotFoundException e) { return ResponseEntity.status(435).body(e.getMessage()); }
+        catch (PasswordIncorrectException e) { return ResponseEntity.status(436).body(e.getMessage()); }
         return ResponseEntity.ok("User logged in successfully");
     }
 

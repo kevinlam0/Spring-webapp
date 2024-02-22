@@ -9,11 +9,11 @@ export const UserProvider = ({ children }) => {
     const { login } = useAccountActions();
     const navigate = useNavigate();
 
-    const handleLogin = (username, password) => {
-        const success = login(username, password);
+    const handleLogin = async (username, password) => {
+        const success = await login(username, password);
         if (success) { 
             setUser(username);
-            console.log(username)
+            console.log("Logged in successfully");
             navigate("/")
         }
     }

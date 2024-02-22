@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useUser } from '../context/UserContext';
 
 export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
     const [liked, setLiked] = useState(false);
+    const { user } = useUser();
     const toggleLikebutton = () => {
         setLiked(prevState => !prevState);
       };
@@ -27,7 +29,11 @@ export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLi
                 :
                 (<button onClick={handleLikeSubmit} disabled={liked}>Like</button>)
             }
-            <button onClick={() => handleDeleteItem(reply_object.id, "reply")}>Delete Reply</button>
+
+            { reply_object.name === user  && reply_object.name !== "Guest" &&
+                <button onClick={() => handleDeleteItem(reply_object.id, "reply")}>Delete Reply</button>
+            }
+
         </div>
     )
 }

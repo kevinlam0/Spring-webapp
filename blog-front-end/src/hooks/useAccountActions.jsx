@@ -16,10 +16,9 @@ export const useAccountActions = () => {
                 
                 return false;
             }
-            console.log("Logged in successfully");
+            return true;
         }
         catch (error) { console.error("Error creating comment: ", error); }
-        return true;
     }
     return { login }
 }

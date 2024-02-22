@@ -49,10 +49,11 @@ public class CommentService {
         comment.setLikes(comment.getLikes() + 1);
         db.save(comment);
     }
-    public void decrementLikes(int commentId) {
+    public void decrementLikes(int commentId, String username) {
         Optional<Comment> optionalComment = db.findById(commentId);
         if (optionalComment.isEmpty()) { throw new IllegalArgumentException("Cannot decrement like from backend"); }
         Comment comment = optionalComment.get();
+        comment.removeUserFromLikedBy(username.toLowerCase());
         comment.setLikes(comment.getLikes() - 1);
         db.save(comment);
     }

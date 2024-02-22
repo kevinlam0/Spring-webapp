@@ -110,4 +110,11 @@ public class Comment {
         if (this.likedBy.contains(username)) {throw new IllegalArgumentException("You cannot like the comment twice");}
         this.likedBy.add(username);
     }
+
+    public void removeUserFromLikedBy(String username) {
+        if (this.likedBy == null || !this.likedBy.contains(username)) {
+            throw new IllegalArgumentException("You cannot remove like if you aren't in a liked user.");
+        }
+        this.likedBy.remove(username);
+    }
 }

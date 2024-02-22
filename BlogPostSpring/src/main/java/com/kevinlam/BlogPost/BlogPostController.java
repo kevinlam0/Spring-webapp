@@ -27,9 +27,7 @@ public class BlogPostController {
 
     @PostMapping("/comments")
     public void addComment(@RequestBody Comment c) {
-        System.out.println("Getting called before adding");
         commentService.addComment(c);
-        System.out.println("Thisisgetting");
     }
 
     @DeleteMapping("/comments")

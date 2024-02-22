@@ -7,14 +7,14 @@ import { UserProvider } from './context/UserContext';
 function App() {
 
   return (
-    // <UserProvider>
+    <UserProvider>
       <BrowserRouter>
         <Routes>
             <Route exact path="/" element={<BlogPost/>} />
             <Route path="/login" element={<LoginPage/>} />  
           </Routes>
       </BrowserRouter>
-    // </UserProvider>
+    </UserProvider>
   );
 }
 

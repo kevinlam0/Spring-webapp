@@ -52,6 +52,7 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
         :
           (<button onClick={handleLikeSubmit} disabled={liked}>Like</button>)
       }
+      <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
       {showReplyInput && (
         <div>
           <input type="text" value={reply.content} onChange={handleReplyChange} />
@@ -59,7 +60,7 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
           <button onClick={toggleReplyInput}>Cancel</button>
         </div>
       )}
-      <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
+      
       {!showReplyInput && (<button onClick={toggleReplyInput}>Reply</button>)}
       <ReplyList 
         reply_list={comment_obj.replies} 

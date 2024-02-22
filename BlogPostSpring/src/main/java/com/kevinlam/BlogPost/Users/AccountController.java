@@ -4,14 +4,13 @@ import com.kevinlam.BlogPost.Exceptions.PasswordIncorrectException;
 import com.kevinlam.BlogPost.Exceptions.UserAlreadyExistsException;
 import com.kevinlam.BlogPost.Exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("blogpost/account")
+@CrossOrigin
 public class AccountController {
 
     @Autowired
@@ -25,8 +24,8 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Account account) {
         try {accountService.checkLoginCredentials(account.getUsername(), account.getPassword());}
-        catch (UserNotFoundException e) { return ResponseEntity.badRequest().body("There is no account with this username. "); }
-        catch (PasswordIncorrectException e) { return ResponseEntity.badRequest().body("Password incorrect. "); }
+        catch (UserNotFoundException e) { return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); }
+        catch (PasswordIncorrectException e) { return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); }
         return ResponseEntity.ok("User logged in successfully");
     }
 

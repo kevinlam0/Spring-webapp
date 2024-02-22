@@ -18,7 +18,7 @@ public class BlogPostApplication {
 
 		ApplicationContext context = SpringApplication.run(BlogPostApplication.class, args);
 //		AccountService service = context.getBean(AccountService.class);
-//		Account account = new Account("ke$inlam021", "paSsword");
+//		Account account = new Account("T^^onY", "paSsword");
 //		service.registerAccount(account);
 //		System.out.println(service.checkLoginCredentials("Ke$inlam021", "paSsword"));
 //		CommentService commentService = context.getBean(CommentService.class);

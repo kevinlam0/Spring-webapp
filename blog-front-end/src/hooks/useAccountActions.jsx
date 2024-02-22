@@ -22,10 +22,17 @@ export const useAccountActions = () => {
     }
 
     const register = async ( username, password ) => {
+        const minLength = 5;
         if (username.trim() === "" || password.trim() === "") {
             alert("You cannot have a blank username or password.")
             return false
         }
+
+        if (password.trim().length < minLength) {
+            alert(`Please create a password of at least ${minLength} characters.`)
+            return false
+        }
+
         try {
             const response = await fetch('http://localhost:8080/blogpost/account/register', { 
                     method: 'POST', 

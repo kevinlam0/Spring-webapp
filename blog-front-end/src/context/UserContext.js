@@ -1,14 +1,21 @@
 import React, { createContext, useState, useContext } from 'react';
 import { useAccountActions } from "../hooks/useAccountActions";
+import { useNavigate } from 'react-router-dom';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState("Guest");
     const { login } = useAccountActions();
+    const navigate = useNavigate();
 
     const handleLogin = (username, password) => {
-        login(username, password);
+        const success = login(username, password);
+        if (success) { 
+            setUser(username);
+            console.log(username)
+            navigate("/")
+        }
     }
 
     const logout = () => {

@@ -18,7 +18,7 @@ public class AccountController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody Account account) {
         try {accountService.registerAccount(account);}
-        catch (UserAlreadyExistsException e) { return ResponseEntity.badRequest().body("Username is already taken"); }
+        catch (UserAlreadyExistsException e) { return ResponseEntity.status(437).body("Username is already taken"); }
         return ResponseEntity.ok("User registered successfully");
     }
     @PostMapping("/login")

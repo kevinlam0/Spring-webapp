@@ -29,6 +29,9 @@ export const useAccountActions = () => {
                     body: JSON.stringify({ username: username, password: password })
             });
             if (!response.ok) { 
+                if (response.status === 437) {
+                    alert("This username is already taken")
+                }
                 return false;
             }
             return true;

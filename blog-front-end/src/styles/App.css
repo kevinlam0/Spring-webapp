@@ -40,12 +40,12 @@
 .opening-pics {
   display: flex;
   justify-content: center;
-  padding: 10px;
+  margin: 10%;
+  margin-top: 7%;
 }
 
 .opening-pics img {
   width: auto;
-  max-width: 40%;
+  max-width: 90%;
   height: auto;
-  padding: 20px;
 }

@@ -3,6 +3,7 @@ import { OpeningPictures } from "../components/OpeningPictures";
 import { CommentSection } from '../components/commentComponents/CommentSection';
 import NavBar from "../NavBar";
 import { useState } from 'react';
+import { BlogContent } from "../components/blogContentComponents/BlogContent";
 
 export const BlogPost = () => {
   const [viewComment, setViewComment] = useState(false);
@@ -13,8 +14,9 @@ export const BlogPost = () => {
     return (
       <div>
         <NavBar/>
-        <Header/>
         <OpeningPictures/>
+        <Header/>
+        <BlogContent/>
         {
           viewComment ? 
             <div>

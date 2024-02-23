@@ -27,9 +27,9 @@ public class BlogPostController {
         return commentService.getAllComments();
     }
 
-    @PostMapping("/comments/{username}")
-    public ResponseEntity<?> addComment(@RequestBody Comment c, @PathVariable("username") String username ) {
-        try { commentService.addComment(c, username); }
+    @PostMapping("/comments")
+    public ResponseEntity<?> addComment(@RequestBody Comment c ) {
+        try { commentService.addComment(c); }
         catch (Exception e) { return ResponseEntity.status(460).body(""); }
         return ResponseEntity.ok("");
     }

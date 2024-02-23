@@ -1,38 +1,32 @@
-
-
 .login-page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 90%;
-    background-color: aliceblue;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
   }
   
   .login-form-container {
     display: flex;
     flex-direction: column;
     font-family: 'Newsreader';
-    background-color: rgb(248, 255, 248);
+    background-color: rgb(249, 255, 249);
     align-items: center;
     margin-top: 10%;
-    margin-bottom: 22%;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-    width: 30%; /* Adjust the width as needed */
-    height: 100%; /* Adjust the height as needed */
-    border-radius: 15px;
+    margin-bottom: 15%;
+    box-shadow: 1px 2px 4px 0 rgba(0,0,0,.2);
+    width: auto; /* Adjust the width as needed */
+    height: auto; /* Adjust the height as needed */
+    min-width: 30%;
+    min-height: 40%;
   }
 
   h3 {
     font-weight: 500;
-    color: green;
+    color: black;
     padding-bottom: 30px;
   }
   
-  .login-input {
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-  }
   .login-form input {
     width: 95%; 
     height: 40px; 
@@ -41,6 +35,10 @@
     border-radius: 10px;
     border-width: 1px;
   }
+
+  input:focus {
+    border-color: green;
+  }
   
   .login-button-container {
     display: flex;
@@ -48,7 +46,7 @@
   }
 
   .login-button-container button {
-    border-radius: 4px;
+    border-radius: 15px;
     background-color: transparent;
     box-shadow: var(--box-shadow);
     color: #000000;
@@ -56,23 +54,32 @@
   }
   
   .login-button-container button:hover {
-    background-color: #f0fff1
+    background-color: #f1f1f1
   }
-  .login-button {
-    margin-right: 5px;
-    padding: 5px 10px;
-  }
-  
-  .login-page-container h2 {
-    margin-bottom: 20px;
-  }
+ 
 .login-form {
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 90%;
+    width: auto;
+    min-width: 80%;
+    max-width: 90%;
+    margin-top: 10%;
+    margin-bottom: 10%;
 }
 
 .button-spacing {
     margin-left: 10px; /* Adjust the margin as needed for the desired spacing */
   }
+
+#login-btn {
+    background-color: #4fa47d;
+    color: white;
+    border-radius: 25px;
+    padding: 8px 20px 8px 20px;
+    box-shadow: 0px 2px 10px 2px rgba(0,0,0,.2);
+}
+
+#login-btn:hover {
+    background-color: #449771;
+}

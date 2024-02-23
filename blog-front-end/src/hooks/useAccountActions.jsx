@@ -43,8 +43,11 @@ export const useAccountActions = () => {
                 if (response.status === 437) {
                     alert("This username is already taken")
                 }
-                if (response.status === 438) {
+                else if (response.status === 438) {
                     alert("Username cannot be longer than 20 characters.")
+                }
+                else if (response.status === 439) {
+                    alert(`Please create a password of at least ${minLength} characters.`)
                 }
                 return false;
             }

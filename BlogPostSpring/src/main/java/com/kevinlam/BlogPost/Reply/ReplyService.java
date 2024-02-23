@@ -44,8 +44,14 @@ public class ReplyService {
     }
 
     public void deleteReplyByID(int id) {
-        Reply reply = replyDB.findById(id).get();
-        Comment comment = commentDB.findById(reply.getComment().getId()).get();
+        Optional<Reply> optionalReply = replyDB.findById(id);
+        if (optionalReply.isEmpty()) { throw new IllegalArgumentException(); }
+        Reply reply = optionalReply.get();
+
+        Optional<Comment> optionalComment = commentDB.findById(reply.getComment().getId());
+        if (optionalComment.isEmpty()) { throw new IllegalArgumentException(); }
+        Comment comment = optionalComment.get();
+
         comment.getReplies().removeIf(r -> r.getId() == id);
         commentDB.save(comment);
         replyDB.delete(reply);
@@ -53,10 +59,10 @@ public class ReplyService {
 
     public void incrementLike(int replyID, String username) {
         if (username.equalsIgnoreCase("guest")) {
-            throw new IllegalArgumentException("Cannot increment like as a guest");
+            throw new IllegalArgumentException();
         }
         Optional<Reply> optionalReply = replyDB.findById(replyID);
-        if (optionalReply.isEmpty()) { throw new IllegalArgumentException("Cannot increment reply like from backend"); }
+        if (optionalReply.isEmpty()) { throw new IllegalArgumentException(); }
         Reply reply = optionalReply.get();
         reply.addUserToLikedBy(username.toLowerCase());
         reply.setLikes(reply.getLikes() + 1);
@@ -65,11 +71,11 @@ public class ReplyService {
 
     public void decrementLike(int replyID, String username) {
         if (username.equalsIgnoreCase("guest")) {
-            throw new IllegalArgumentException("Cannot decrement like as a guest");
+            throw new IllegalArgumentException();
         }
 
         Optional<Reply> optionalReply = replyDB.findById(replyID);
-        if (optionalReply.isEmpty()) { throw new IllegalArgumentException("Cannot decrement reply like from backend"); }
+        if (optionalReply.isEmpty()) { throw new IllegalArgumentException(); }
         Reply reply = optionalReply.get();
         reply.removeUserFromLikedBy(username.toLowerCase());
         reply.setLikes(reply.getLikes() - 1);

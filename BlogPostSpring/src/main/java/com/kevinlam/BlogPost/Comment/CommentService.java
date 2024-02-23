@@ -1,6 +1,7 @@
 package com.kevinlam.BlogPost.Comment;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -21,34 +22,23 @@ public class CommentService {
         }
         return res;
     }
-    public void addComment(Comment c, String username) {
-        if (username.equalsIgnoreCase("guest")) {throw new IllegalArgumentException("Guest cannot add comment");}
-        if (c.getContent().trim().equals("")) {throw new IllegalArgumentException("Comment cannot be blank");}
+    public void addComment(Comment c, String username) throws Exception {
+        if (username.equalsIgnoreCase("guest")) {throw new Exception();}
+        if (c.getContent().trim().equals("")) { throw new Exception(); }
         setCurrentTime(c);
         db.save(c);
     }
-
-    private static void setCurrentTime(Comment c) {
-        long millis=System.currentTimeMillis();
-        Instant instant = Instant.ofEpochMilli(millis);
-        ZoneId zoneId = ZoneId.systemDefault(); // Or specify a specific time zone
-        LocalDateTime current = instant.atZone(zoneId).toLocalDateTime();
-        c.setSubmission(current);
+    public void deleteCommentByID(int id) throws EmptyResultDataAccessException {
+        db.deleteById(id);
     }
-
-    public List<Comment> getCommentsFromUser(String username) {
-        return db.findByName(username);
-    }
-    public Optional<Comment> getCommentFromID(int id) {return db.findById(id);}
-    public void deleteCommentByID(int id) { db.deleteById(id); }
 
     public void incrementLikes(int commentId, String username) {
         if (username.equalsIgnoreCase("guest")) {
-            throw new IllegalArgumentException("Cannot increment like as a guest");
+            throw new IllegalArgumentException();
         }
 
         Optional<Comment> optionalComment = db.findById(commentId);
-        if (optionalComment.isEmpty()) { throw new IllegalArgumentException("Cannot increment like from backend"); }
+        if (optionalComment.isEmpty()) { throw new IllegalArgumentException(); }
         Comment comment = optionalComment.get();
         comment.addUserToLikedBy(username.toLowerCase());
         comment.setLikes(comment.getLikes() + 1);
@@ -56,14 +46,21 @@ public class CommentService {
     }
     public void decrementLikes(int commentId, String username) {
         if (username.equalsIgnoreCase("guest")) {
-            throw new IllegalArgumentException("Cannot decrement like as a guest");
+            throw new IllegalArgumentException("");
         }
 
         Optional<Comment> optionalComment = db.findById(commentId);
-        if (optionalComment.isEmpty()) { throw new IllegalArgumentException("Cannot decrement like from backend"); }
+        if (optionalComment.isEmpty()) { throw new IllegalArgumentException(""); }
         Comment comment = optionalComment.get();
         comment.removeUserFromLikedBy(username.toLowerCase());
         comment.setLikes(comment.getLikes() - 1);
         db.save(comment);
+    }
+    private static void setCurrentTime(Comment c) {
+        long millis=System.currentTimeMillis();
+        Instant instant = Instant.ofEpochMilli(millis);
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime current = instant.atZone(zoneId).toLocalDateTime();
+        c.setSubmission(current);
     }
 }

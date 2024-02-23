@@ -19,14 +19,7 @@ export const CommentForm = ({ handleAddComment }) => {
     }
 
     const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            if (user === "Guest") {alert("You cannot add comments as a guest. Please log in!")}
-            else {
-                e.preventDefault();
-                handleAddComment(comment);
-                setComment(prevState => ({...prevState, content: ""}));
-            } 
-        }
+        if (e.key === 'Enter') { handleSubmit(e); }
     }
 
     const handleChange = (e) => {

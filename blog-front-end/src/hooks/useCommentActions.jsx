@@ -1,4 +1,4 @@
-export const useNode = () => {
+export const useCommentActions = () => {
     const addComment = async function (comment) {
         try {
             const response = await fetch('http://localhost:8080/blogpost/comments', { 
@@ -72,7 +72,7 @@ export const useNode = () => {
         catch (error) { console.error("Error unliking comment: ", error); }
     }
 
-    const addReplyLike = async (comment_id, reply_id, username) => {
+    const addReplyLike = async (reply_id, username) => {
         try {
             const response = await fetch(`http://localhost:8080/blogpost/comments/reply/${reply_id}/like/${username}`, { 
                 method: 'POST', 
@@ -87,7 +87,7 @@ export const useNode = () => {
         catch (error) { console.error("Error liking reply: ", error); }
     }
 
-    const unReplyLike = async (comment_id, reply_id, username) => {
+    const unReplyLike = async (reply_id, username) => {
         try {
             const response = await fetch(`http://localhost:8080/blogpost/comments/reply/${reply_id}/unlike/${username}`, { 
                 method: 'POST', 

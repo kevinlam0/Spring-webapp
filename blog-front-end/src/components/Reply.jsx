@@ -4,7 +4,7 @@ import { useUser } from '../context/UserContext';
 export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
     
     const { user } = useUser();
-    const [likedBy, setLikedBy] = useState(reply_object.likedBy || []);
+    const [likedBy] = useState(reply_object.likedBy || []);
     const toggleLikebutton = () => {
         setLiked(prevState => !prevState);
       };
@@ -14,7 +14,7 @@ export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLi
       if (user === "Guest") {alert("You cannot like replies as a guest please sign in!")}
       else {
         e.preventDefault();
-        if (!liked) { handleReplyLike(comment_id, reply_object.id, user); }
+        if (!liked) { handleReplyLike(reply_object.id, user); }
         toggleLikebutton();
       }
         
@@ -24,7 +24,7 @@ export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLi
         if (user === "Guest") {alert("You cannot unlike replies as a guest please sign in!")}
         else {
           e.preventDefault();
-          if (liked) { handleUnReplyLike(comment_id, reply_object.id, user); }
+          if (liked) { handleUnReplyLike(reply_object.id, user); }
           toggleLikebutton();
         }
       }

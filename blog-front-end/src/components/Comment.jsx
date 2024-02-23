@@ -5,7 +5,7 @@ import { useUser } from '../context/UserContext';
 export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlike, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
   const { user } = useUser();
-  const [likedBy, setLikedBy] = useState(comment_obj.likedBy || []);
+  const [likedBy] = useState(comment_obj.likedBy || []);
   const [reply, setReply] = useState({
     content: "",
     name: user
@@ -18,36 +18,24 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
     if (user === "Guest") { alert("You may not reply to comments as a guest please login first!")}
     else {setShowReplyInput(prevState => !prevState); }
   };
-
   const toggleLikebutton = () => { setLiked(prevState => !prevState); };
 
   const handleReplyChange = (e) => {
     const { value } = e.target;
-    setReply(prevState => ({ ...prevState, ['content']: value }))
+    setReply(prevState => ({ ...prevState, content: value }))
 }
-
-const handleKeyDown = (e) => {
-  if (e.key === 'Enter') {
-    if (user === "Guest") { alert("You may not reply to comments as a guest please login first!")}
-    else {
-      e.preventDefault();
-      handleAddReply(comment_obj.id, reply);
-      setShowReplyInput(false);
-      setReply(prevState => ({ ...prevState, ['content']: '' }))
-    }
-  }
-}
-
   const handleReplySubmit = (e) => {
     if (user === "Guest") { alert("You may not reply to comments as a guest please login first!")}
     else {
       e.preventDefault();
       handleAddReply(comment_obj.id, reply);
       setShowReplyInput(false);
-      setReply(prevState => ({ ...prevState, ['content']: '' }))
+      setReply(prevState => ({ ...prevState, content: '' }))
     }
   };
-
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') { handleReplySubmit(e); }
+  }
   const handleLikeSubmit = (e) => {
     if (user === "Guest") { alert("You may not like comments as a guest please login first!")}
     else {
@@ -56,7 +44,6 @@ const handleKeyDown = (e) => {
       toggleLikebutton();
     }
   }
-
   const handleUnlikeSubmit = (e) => {
     if (user === "Guest") { alert("You may not unlike comments as a guest please login first!")}
     else { 

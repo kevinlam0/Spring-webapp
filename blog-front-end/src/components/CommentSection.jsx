@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { CommentList } from "./CommentList";
 import { CommentForm } from "./CommentForm";
-import { useNode } from "../hooks/useNode";
+import { useCommentActions } from "../hooks/useCommentActions";
 import { useUser } from "../context/UserContext";
 
 export const CommentSection = () => {
     const [commentData, setCommentData] = useState([]);
-    const { addComment, deleteItem, addReply, addLike, unlike, addReplyLike, unReplyLike } = useNode();
+    const { addComment, deleteItem, addReply, addLike, unlike, addReplyLike, unReplyLike } = useCommentActions();
     const [addCommentMode, setAddCommentMode] = useState(false);
     const { user } = useUser();
 
@@ -39,12 +39,12 @@ export const CommentSection = () => {
         await unlike(comment_id, username);
         fetchData();
     }
-    const handleReplyLike = async (comment_id, reply_id, username) => {
-        await addReplyLike(comment_id, reply_id, username);
+    const handleReplyLike = async (reply_id, username) => {
+        await addReplyLike(reply_id, username);
         fetchData();
     }
-    const handleUnReplyLike = async (comment_id, reply_id, username) => {
-        await unReplyLike(comment_id, reply_id, username);
+    const handleUnReplyLike = async (reply_id, username) => {
+        await unReplyLike(reply_id, username);
         fetchData();
     }
     const toggleAddComment = () => {
@@ -56,10 +56,10 @@ export const CommentSection = () => {
         <>
             {
                 addCommentMode && user !== "Guest" ?
-                <div>
-                    <CommentForm handleAddComment ={handleAddComment} />
-                    <button onClick={toggleAddComment}>Cancel</button>
-                </div>
+                    <div>
+                        <CommentForm handleAddComment ={handleAddComment} />
+                        <button onClick={toggleAddComment}>Cancel</button>
+                    </div>
                 :
                     <button onClick={toggleAddComment}>Add comment</button>
             }

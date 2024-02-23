@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { ReplyList } from './ReplyList';
-import { useUser } from '../context/UserContext';
+import { useUser } from '../../context/UserContext';
 
 export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlike, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);

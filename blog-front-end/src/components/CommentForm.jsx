@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useUser } from '../context/UserContext';
 export const CommentForm = ({ handleAddComment }) => {
 
@@ -13,8 +13,8 @@ export const CommentForm = ({ handleAddComment }) => {
         if (user === "Guest") {alert("You cannot add comments as a guest. Please log in!")}
         else {
             e.preventDefault();
-            handleAddComment(comment, user);
-            setComment(prevState => ({...prevState, ['content']: ""}));
+            handleAddComment(comment);
+            setComment(prevState => ({...prevState, content: ""}));
         }   
     }
 
@@ -23,8 +23,8 @@ export const CommentForm = ({ handleAddComment }) => {
             if (user === "Guest") {alert("You cannot add comments as a guest. Please log in!")}
             else {
                 e.preventDefault();
-                handleAddComment(comment, user);
-                setComment(prevState => ({...prevState, ['content']: ""}));
+                handleAddComment(comment);
+                setComment(prevState => ({...prevState, content: ""}));
             } 
         }
     }

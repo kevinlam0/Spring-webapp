@@ -19,8 +19,8 @@ export const CommentSection = () => {
 
     useEffect(() => { fetchData(); }, []);
 
-    const handleAddComment = async (comment, username) => {
-        await addComment(comment, username);
+    const handleAddComment = async (comment) => {
+        await addComment(comment);
         fetchData();
     }
     const handleDeleteItem = async (itemId, itemType) => {
@@ -55,7 +55,7 @@ export const CommentSection = () => {
     return (
         <>
             {
-                addCommentMode ?
+                addCommentMode && user !== "Guest" ?
                 <div>
                     <CommentForm handleAddComment ={handleAddComment} />
                     <button onClick={toggleAddComment}>Cancel</button>

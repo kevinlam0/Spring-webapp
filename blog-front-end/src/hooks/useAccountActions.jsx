@@ -1,5 +1,9 @@
 export const useAccountActions = () => {
     const login = async ( username, password ) => {
+        if (username.trim() === "" || password.trim() === "") { 
+            alert("You cannot have a blank username or password.");
+            return false;
+        }
         try {
             const response = await fetch('http://localhost:8080/blogpost/account/login', { 
                 method: 'POST', 

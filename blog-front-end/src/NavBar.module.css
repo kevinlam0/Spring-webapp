@@ -2,9 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 .navbar {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Newsreader', serif;
   background-color: #1877F2;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+
+.navbarContainer {
+  max-width:95%;
+  margin: 0 auto;
 }
 
 .navLink {
@@ -20,5 +26,5 @@
 }
 
 .navLink:hover {
-  background-color: #fff;
+  background-color: #f0fff1;
 }

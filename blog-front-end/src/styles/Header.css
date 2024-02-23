@@ -1,0 +1,9 @@
+.page-title {
+    text-align: center; /* Center the text horizontally */
+    font-family: 'Newsreader', serif; /* Use the Newsreader font */
+    margin-top: 90px; /* Adjust the top margin to your liking */
+    margin-bottom: 90px;
+    width: 40%; /* Set the width to 40% of the viewport */
+    margin-left: 30%; /* Center the header horizontally */
+    margin-right: 30%; /* Center the header horizontally */
+}

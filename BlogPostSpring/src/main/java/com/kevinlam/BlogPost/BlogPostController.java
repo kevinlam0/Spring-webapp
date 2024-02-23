@@ -5,6 +5,8 @@ import com.kevinlam.BlogPost.Comment.CommentService;
 import com.kevinlam.BlogPost.Reply.Reply;
 import com.kevinlam.BlogPost.Reply.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,22 +27,11 @@ public class BlogPostController {
         return commentService.getAllComments();
     }
 
-    @PostMapping("/comments/{username}")
-    public void addComment(@RequestBody Comment c, @PathVariable("username") String username ) {
-        commentService.addComment(c, username);
-    }
-
-    @DeleteMapping("/comments")
-    public void deleteComment(@RequestBody Map<String, String> request) {
-        System.out.println("Delete function is being called");
-        int id = Integer.parseInt(request.get("id"));
-        String itemType = request.get("type");
-        try {
-            if (itemType.equals("reply")) { replyService.deleteReplyByID(id); }
-            else if (itemType.equals("comment")) { commentService.deleteCommentByID(id); }
-            else {throw new IllegalArgumentException("Something went wrong with deleting comment"); }
-        }
-        catch (Exception e ) { throw new IllegalArgumentException("Something went wrong with deleting comment"); }
+    @PostMapping("/comments")
+    public ResponseEntity<?> addComment(@RequestBody Comment c ) {
+        try { commentService.addComment(c); }
+        catch (Exception e) { return ResponseEntity.status(460).body(""); }
+        return ResponseEntity.ok("");
     }
 
     @PostMapping("/comments/{comment_id}/reply")
@@ -48,22 +39,45 @@ public class BlogPostController {
         replyService.addReplyToComment(commentId, reply);
     }
 
+    @DeleteMapping("/comments")
+    public ResponseEntity<?> deleteItem(@RequestBody Map<String, String> request) {
+        int id = Integer.parseInt(request.get("id"));
+        String itemType = request.get("type");
+        try {
+            if (itemType.equals("reply")) { replyService.deleteReplyByID(id); }
+            else if (itemType.equals("comment")) { commentService.deleteCommentByID(id); }
+            else { ResponseEntity.status(461).body(""); }
+        }
+        catch (EmptyResultDataAccessException | IllegalArgumentException e ) {
+            return ResponseEntity.status(462).body("");
+        }
+        return ResponseEntity.ok("");
+    }
+
     @PostMapping("/comments/{comment_id}/like/{username}")
-    public void addCommentLike(@PathVariable("comment_id") int commentId, @PathVariable("username") String username) {
-        commentService.incrementLikes(commentId, username);
+    public ResponseEntity<?> addCommentLike(@PathVariable("comment_id") int commentId, @PathVariable("username") String username) {
+        try {commentService.incrementLikes(commentId, username);}
+        catch (IllegalArgumentException e) { return ResponseEntity.status(463).body(""); }
+        return ResponseEntity.ok("");
     }
 
     @PostMapping("/comments/{comment_id}/unlike/{username}")
-    public void subtractLike(@PathVariable("comment_id") int commentId, @PathVariable("username") String username) {
-        commentService.decrementLikes(commentId, username);
+    public ResponseEntity<?> subtractLike(@PathVariable("comment_id") int commentId, @PathVariable("username") String username) {
+        try {commentService.decrementLikes(commentId, username);}
+        catch (IllegalArgumentException e) { return ResponseEntity.status(463).body(""); }
+        return ResponseEntity.ok("");
     }
 
-    @PostMapping("/comments/{comment_id}/reply/{reply_id}/like/{username}")
-    public void addReplyLike(@PathVariable("reply_id") int replyID, @PathVariable("username") String username) {
-        replyService.incrementLike(replyID, username);
+    @PostMapping("/comments/reply/{reply_id}/like/{username}")
+    public ResponseEntity<?> addReplyLike(@PathVariable("reply_id") int replyID, @PathVariable("username") String username) {
+        try {replyService.incrementLike(replyID, username);}
+        catch (IllegalArgumentException e) { return ResponseEntity.status(463).body(""); }
+        return ResponseEntity.ok("");
     }
-    @PostMapping("/comments/{comment_id}/reply/{reply_id}/unlike/{username}")
-    public void subtractReplyLike(@PathVariable("reply_id") int replyID, @PathVariable("username") String username) {
-        replyService.decrementLike(replyID, username);
+    @PostMapping("/comments/reply/{reply_id}/unlike/{username}")
+    public ResponseEntity<?> subtractReplyLike(@PathVariable("reply_id") int replyID, @PathVariable("username") String username) {
+        try {replyService.decrementLike(replyID, username);}
+        catch (IllegalArgumentException e) { return ResponseEntity.status(463).body(""); }
+        return ResponseEntity.ok("");
     }
 }

@@ -11,7 +11,7 @@ export const useAccountActions = () => {
                     alert("Password was incorrect. Please try again")
                 }
                 else if (response.status === 435) {
-                    alert("There is no account with this username")
+                    alert("There is no account with this username. Please register this account")
                 }
                 
                 return false;
@@ -23,15 +23,8 @@ export const useAccountActions = () => {
 
     const register = async ( username, password ) => {
         const minLength = 5;
-        if (username.trim() === "" || password.trim() === "") {
-            alert("You cannot have a blank username or password.")
-            return false
-        }
-
-        if (password.trim().length < minLength) {
-            alert(`Please create a password of at least ${minLength} characters.`)
-            return false
-        }
+        const valid = checkCredentialValidity(username, password, minLength);
+        if (!valid) { return false; }
 
         try {
             const response = await fetch('http://localhost:8080/blogpost/account/register', { 
@@ -43,8 +36,11 @@ export const useAccountActions = () => {
                 if (response.status === 437) {
                     alert("This username is already taken")
                 }
-                if (response.status === 438) {
+                else if (response.status === 438) {
                     alert("Username cannot be longer than 20 characters.")
+                }
+                else if (response.status === 439) {
+                    alert(`Please create a password of at least ${minLength} characters.`)
                 }
                 return false;
             }
@@ -52,6 +48,19 @@ export const useAccountActions = () => {
         }
         catch (error) { console.error("Error registering account: ", error); }
         
+    }
+
+    function checkCredentialValidity( username, password, minLength ) {
+        if (username.trim() === "" || password.trim() === "") {
+            alert("You cannot have a blank username or password.");
+            return false;
+        }
+
+        if (password.trim().length < minLength) {
+            alert(`Please create a password of at least ${minLength} characters.`);
+            return false;
+        }
+        return true;
     }
     
     return { login, register }

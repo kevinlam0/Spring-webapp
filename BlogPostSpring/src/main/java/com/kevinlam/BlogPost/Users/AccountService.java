@@ -17,17 +17,19 @@ public class AccountService {
         if (account.getUsername().length() > 20) {
             throw new InvalidUserNameException("The username cannot be longer than 20 characters.");
         }
-        account.setUserLower(account.getUsername().toLowerCase());
+        if (account.getPassword().length() < 5) { throw new IllegalArgumentException(); }
+        account.setUsername(account.getUsername().toLowerCase());
 
-        if (accountDB.findByUserLower(account.getUserLower()) != null || account.getUserLower().equals("guest")) {
+        if (accountDB.findByUser(account.getUsername()) != null || account.getUsername().equals("guest")) {
             throw new UserAlreadyExistsException();
         }
+
         account.setPassword(PasswordEncoder.hashPassword(account.getPassword()));
         accountDB.save(account);
     }
 
     public void checkLoginCredentials(String username, String password) {
-        Account account = accountDB.findByUserLower(username.toLowerCase());
+        Account account = accountDB.findByUser(username.toLowerCase());
         if (account == null) { throw new UserNotFoundException("There is not an account with this username."); }
         if (!PasswordEncoder.verifyPassword(password, account.getPassword())) { throw new PasswordIncorrectException("The password is incorrect for the username."); }
     }

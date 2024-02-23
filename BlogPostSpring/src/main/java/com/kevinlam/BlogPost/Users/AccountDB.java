@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountDB extends JpaRepository<Account, Integer> {
-    @Query(value = "SELECT * FROM Account WHERE user_lower=?",nativeQuery = true)
-    Account findByUserLower(String userLower);
+    @Query(value = "SELECT * FROM Account WHERE username=?",nativeQuery = true)
+    Account findByUser(String username);
 }

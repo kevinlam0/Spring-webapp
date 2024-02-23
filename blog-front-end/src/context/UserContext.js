@@ -12,21 +12,19 @@ export const UserProvider = ({ children }) => {
     const handleLogin = async (username, password) => {
         const success = await login(username, password);
         if (success) { 
-            setUser(username);
+            setUser(username.toLowerCase());
             console.log("Logged in successfully");
             navigate("/")
         }
     }
 
-    const handleLogout = async () => {
-        setUser("Guest");
-    }
+    const handleLogout = async () => { setUser("Guest"); }
 
     const handleRegister = async (username, password) => {
-        const success = await register(username, password)
+        const success = await register(username.toLowerCase(), password)
         if (success) {
             console.log("Registering account successful");
-            setUser(username);
+            setUser(username.toLowerCase());
             navigate("/")
         }
     }

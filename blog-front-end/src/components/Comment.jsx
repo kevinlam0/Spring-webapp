@@ -26,6 +26,18 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
     setReply(prevState => ({ ...prevState, ['content']: value }))
 }
 
+const handleKeyDown = (e) => {
+  if (e.key === 'Enter') {
+    if (user === "Guest") { alert("You may not reply to comments as a guest please login first!")}
+    else {
+      e.preventDefault();
+      handleAddReply(comment_obj.id, reply);
+      setShowReplyInput(false);
+      setReply(prevState => ({ ...prevState, ['content']: '' }))
+    }
+  }
+}
+
   const handleReplySubmit = (e) => {
     if (user === "Guest") { alert("You may not reply to comments as a guest please login first!")}
     else {
@@ -70,7 +82,7 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
 
       {showReplyInput && (
         <div>
-          <input type="text" value={reply.content} onChange={handleReplyChange} />
+          <input type="text" autoFocus value={reply.content} onChange={handleReplyChange} onKeyDown={handleKeyDown}/>
           <button onClick={handleReplySubmit} disabled={isTextAreaDisabled}>Submit Reply</button>
           <button onClick={toggleReplyInput}>Cancel</button>
         </div>

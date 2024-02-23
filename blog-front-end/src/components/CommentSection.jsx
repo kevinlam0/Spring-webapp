@@ -17,9 +17,7 @@ export const CommentSection = () => {
           .catch(error => console.error('Error fetching comments:', error));
     }
 
-    useEffect(() => {
-        fetchData();
-      }, []);
+    useEffect(() => { fetchData(); }, []);
 
     const handleAddComment = async (comment, username) => {
         await addComment(comment, username);

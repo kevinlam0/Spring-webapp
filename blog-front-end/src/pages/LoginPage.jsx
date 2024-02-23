@@ -15,14 +15,19 @@ export const LoginPage = () => {
   const handleRegisterAccount = () => {
     handleRegister( username, password )
   }
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin( username, password )
+    }
+  }
 
   return (
     <div>
       <NavBar/>
       <h2>Login Page</h2>
       <div>
-        <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="text" autoFocus placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input type="password" onKeyDown={handleKeyDown} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <button onClick={handleLoginSubmit}>Login</button>
         <button onClick={handleRegisterAccount}>Register</button>
       </div>

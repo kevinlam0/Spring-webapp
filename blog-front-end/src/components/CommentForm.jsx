@@ -15,8 +15,18 @@ export const CommentForm = ({ handleAddComment }) => {
             e.preventDefault();
             handleAddComment(comment, user);
             setComment(prevState => ({...prevState, ['content']: ""}));
+        }   
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            if (user === "Guest") {alert("You cannot add comments as a guest. Please log in!")}
+            else {
+                e.preventDefault();
+                handleAddComment(comment, user);
+                setComment(prevState => ({...prevState, ['content']: ""}));
+            } 
         }
-        
     }
 
     const handleChange = (e) => {
@@ -29,9 +39,12 @@ export const CommentForm = ({ handleAddComment }) => {
             <input
                 type='text'
                 name='content'
+                autoFocus
                 value={comment.content}
                 onChange={handleChange}
-                placeholder='Enter Comment...' />
+                placeholder='Enter Comment...' 
+                onKeyDown={handleKeyDown}
+            />
             <button type="submit" disabled={isTextAreaDisabled}>Submit</button>
         </form>
     )

@@ -1,14 +1,12 @@
 export const useNode = () => {
     const addComment = async function (comment, username) {
         try {
-            console.log(comment)
             const response = await fetch('http://localhost:8080/blogpost/comments/username', { 
                 method: 'POST', 
                 headers: {'Content-Type': 'application/json'}, 
                 body: JSON.stringify(comment) 
             });
             if (!response.ok) { 
-                if (response.status === 460) { alert("You cannot add comment as a guest.") }
                 throw new Error(''); 
             }
         }

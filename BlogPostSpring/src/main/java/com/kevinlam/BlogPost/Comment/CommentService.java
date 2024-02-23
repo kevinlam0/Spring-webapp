@@ -31,7 +31,6 @@ public class CommentService {
     public void deleteCommentByID(int id) throws EmptyResultDataAccessException {
         db.deleteById(id);
     }
-
     public void incrementLikes(int commentId, String username) {
         if (username.equalsIgnoreCase("guest")) {
             throw new IllegalArgumentException();

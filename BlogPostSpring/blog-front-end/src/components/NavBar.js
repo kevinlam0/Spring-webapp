@@ -1,8 +1,8 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import styles from './styles/NavBar.module.css';
-import { useUser } from "./context/UserContext";
+import styles from '../styles/NavBar.module.css';
+import { useUser } from "../context/UserContext";
 
 const NavBar = () => {
   const { user, handleLogout } = useUser();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useUser } from '../context/UserContext';
-import NavBar from '../NavBar';
+import NavBar from '../components/NavBar';
 import "../styles/Login.css"
 
 export const LoginPage = () => {

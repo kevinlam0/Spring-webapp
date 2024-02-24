@@ -96,13 +96,15 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
             <button id='delete-btn' onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete</button>
           }
         </div>
-        <ReplyList 
-          reply_list={comment_obj.replies} 
-          handleDeleteItem={handleDeleteItem} 
-          handleReplyLike={handleReplyLike} 
-          comment_id={comment_obj.id}
-          handleUnReplyLike={handleUnReplyLike}
-        />
+        <div className='replies'>
+          <ReplyList 
+            reply_list={comment_obj.replies} 
+            handleDeleteItem={handleDeleteItem} 
+            handleReplyLike={handleReplyLike} 
+            comment_id={comment_obj.id}
+            handleUnReplyLike={handleUnReplyLike}
+          />
+        </div>
       </div>
     </div>
   );

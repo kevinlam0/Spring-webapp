@@ -3,6 +3,7 @@ import { CommentList } from "./CommentList";
 import { CommentForm } from "./CommentForm";
 import { useCommentActions } from "../../hooks/useCommentActions";
 import { useUser } from "../../context/UserContext";
+import "../../styles/CommentSection.css"
 
 export const CommentSection = () => {
     const [commentData, setCommentData] = useState([]);

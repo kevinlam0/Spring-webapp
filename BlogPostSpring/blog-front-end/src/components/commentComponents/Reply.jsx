@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useUser } from '../../context/UserContext';
+import { CgProfile } from "react-icons/cg";
+import { FaRegThumbsUp } from "react-icons/fa";
+import { FaThumbsUp } from "react-icons/fa";
 
 export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
     
@@ -30,19 +33,37 @@ export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLi
       }
 
     return (
-        <div>
-            <strong>{reply_object.name}:</strong> {reply_object.content} {reply_object.submission.slice(0, 10)} {reply_object.likes}
-            {
-                liked && user !== "Guest"? 
-                (<button onClick={handleUnlikeSubmit} >Unlike</button>)
+        <div className="reply">
+
+          <div className='icon-reply'>
+            <CgProfile className='profile-icon-comment'/>
+          </div>
+
+
+          <div className="non-icon-reply">
+
+            <div className='reply-information'>
+              <strong>{reply_object.name}:</strong> 
+              <p>{reply_object.submission.slice(0, 10)}</p>
+            </div>
+
+            <div className='reply-content'>{reply_object.content}</div>
+
+            <div className='comment-actions'>
+
+              {liked && user !== "Guest" ? 
+                  <FaThumbsUp className='like-icon' onClick={handleUnlikeSubmit}/>
                 :
-                (<button onClick={handleLikeSubmit} >Like</button>)
-            }
+                  <FaRegThumbsUp className='like-icon' onClick={handleLikeSubmit}/>
+              }
 
-            { reply_object.name === user  && reply_object.name !== "Guest" &&
+              <p>{reply_object.likes}</p>
+
+              { reply_object.name === user  && reply_object.name !== "Guest" &&
                 <button onClick={() => handleDeleteItem(reply_object.id, "reply")}>Delete Reply</button>
-            }
-
+              }
+            </div>
+          </div>
         </div>
     )
 }

@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import { ReplyList } from './ReplyList';
 import { useUser } from '../../context/UserContext';
+import { FaRegThumbsUp } from "react-icons/fa";
+import { FaThumbsUp } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 
 export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlike, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
@@ -55,27 +58,33 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
 
   return (
     <div className="comment">
-      <strong>{comment_obj.name}:</strong> {comment_obj.content} {comment_obj.submission.slice(0, 10)} {comment_obj.likes}
-      {
-        liked && user !== "Guest"? 
-          (<button onClick={handleUnlikeSubmit} >Unlike</button>)
-        :
-          (<button onClick={handleLikeSubmit} >Like</button>)
+      <CgProfile className='profile-icon-comment'/>
+      <div className='non-icon-comment'>
+      <div className='comment-information'>
+        <strong>{comment_obj.name}:</strong> 
+        <p>{comment_obj.submission.slice(0, 10)}</p>
+      </div>
+      <div className='comment-content'>{comment_obj.content}</div>
+      <div className='comment-actions'>
+        {
+          liked && user !== "Guest"? 
+            <FaThumbsUp className='like-icon' onClick={handleUnlikeSubmit}/>
+          :
+            <FaRegThumbsUp className='like-icon' onClick={handleLikeSubmit}/>
+        }
+        <p>{comment_obj.likes}</p>
+        {!showReplyInput && (<button classname='action' onClick={toggleReplyInput}>Reply</button>)}
+        {showReplyInput && (
+          <div>
+            <input type="text" autoFocus value={reply.content} onChange={handleReplyChange} onKeyDown={handleKeyDown}/>
+            <button onClick={handleReplySubmit} disabled={isTextAreaDisabled}>Submit Reply</button>
+            <button onClick={toggleReplyInput}>Cancel</button>
+          </div>
+        )}
+        { comment_obj.name.toUpperCase() === user.toUpperCase() && comment_obj.name !== "Guest" &&
+          <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
       }
-
-      { comment_obj.name.toUpperCase() === user.toUpperCase() && comment_obj.name !== "Guest" &&
-        <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
-      }
-
-      {showReplyInput && (
-        <div>
-          <input type="text" autoFocus value={reply.content} onChange={handleReplyChange} onKeyDown={handleKeyDown}/>
-          <button onClick={handleReplySubmit} disabled={isTextAreaDisabled}>Submit Reply</button>
-          <button onClick={toggleReplyInput}>Cancel</button>
-        </div>
-      )}
-      
-      {!showReplyInput && (<button onClick={toggleReplyInput}>Reply</button>)}
+      </div>
       <ReplyList 
         reply_list={comment_obj.replies} 
         handleDeleteItem={handleDeleteItem} 
@@ -83,6 +92,7 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
         comment_id={comment_obj.id}
         handleUnReplyLike={handleUnReplyLike}
       />
+      </div>
     </div>
   );
 };

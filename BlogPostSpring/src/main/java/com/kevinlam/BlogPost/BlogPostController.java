@@ -30,6 +30,7 @@ public class BlogPostController {
     @PostMapping("/comments")
     public ResponseEntity<?> addComment(@RequestBody Comment c ) {
         try { commentService.addComment(c); }
+        catch (IllegalArgumentException e) { return ResponseEntity.status(464).body("");}
         catch (Exception e) { return ResponseEntity.status(460).body(""); }
         return ResponseEntity.ok("");
     }

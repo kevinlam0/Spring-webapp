@@ -10,15 +10,17 @@ export const CommentList = ({ comments, handleDeleteItem, handleAddReply,
         comments.map(comment => (
           <div key={comment.id}>
             <li >
-              <Comment 
-                comment_obj = {comment}
-                handleAddReply={handleAddReply}
-                handleLiking={handleAddLike}
-                handleUnlike={handleUnlike}
-                handleDeleteItem={handleDeleteItem}
-                handleReplyLike={handleReplyLike}
-                handleUnReplyLike={handleUnReplyLike}
-              />
+              <div className="comment-container">
+                <Comment 
+                  comment_obj = {comment}
+                  handleAddReply={handleAddReply}
+                  handleLiking={handleAddLike}
+                  handleUnlike={handleUnlike}
+                  handleDeleteItem={handleDeleteItem}
+                  handleReplyLike={handleReplyLike}
+                  handleUnReplyLike={handleUnReplyLike}
+                />
+              </div>
             </li>
           </div>
         ))

@@ -61,7 +61,7 @@ export const CommentSection = () => {
                         <button onClick={toggleAddComment}>Cancel</button>
                     </div>
                 :
-                    <button onClick={toggleAddComment}>Add comment</button>
+                    <button id='comment-main-btn' onClick={toggleAddComment}>Add comment</button>
             }
             <CommentList 
                 comments={commentData}

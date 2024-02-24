@@ -1,8 +1,7 @@
 .blog-container {
     display: flex;
     font-family: 'Newsreader';
-    margin: 5%;
-  }
+}
   .semi-bold {
     font-weight: 500;
     color: red;

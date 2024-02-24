@@ -58,40 +58,51 @@ export const Comment = ({ comment_obj, handleAddReply, handleLiking, handleUnlik
 
   return (
     <div className="comment">
-      <CgProfile className='profile-icon-comment'/>
+
+      <div className='icon-comment'>
+        <CgProfile className='profile-icon-comment'/>
+      </div>
+
       <div className='non-icon-comment'>
-      <div className='comment-information'>
-        <strong>{comment_obj.name}:</strong> 
-        <p>{comment_obj.submission.slice(0, 10)}</p>
-      </div>
-      <div className='comment-content'>{comment_obj.content}</div>
-      <div className='comment-actions'>
-        {
-          liked && user !== "Guest"? 
-            <FaThumbsUp className='like-icon' onClick={handleUnlikeSubmit}/>
-          :
-            <FaRegThumbsUp className='like-icon' onClick={handleLikeSubmit}/>
-        }
-        <p>{comment_obj.likes}</p>
-        {!showReplyInput && (<button classname='action' onClick={toggleReplyInput}>Reply</button>)}
-        {showReplyInput && (
-          <div>
-            <input type="text" autoFocus value={reply.content} onChange={handleReplyChange} onKeyDown={handleKeyDown}/>
-            <button onClick={handleReplySubmit} disabled={isTextAreaDisabled}>Submit Reply</button>
-            <button onClick={toggleReplyInput}>Cancel</button>
-          </div>
-        )}
-        { comment_obj.name.toUpperCase() === user.toUpperCase() && comment_obj.name !== "Guest" &&
-          <button onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete Comment</button>
-      }
-      </div>
-      <ReplyList 
-        reply_list={comment_obj.replies} 
-        handleDeleteItem={handleDeleteItem} 
-        handleReplyLike={handleReplyLike} 
-        comment_id={comment_obj.id}
-        handleUnReplyLike={handleUnReplyLike}
-      />
+
+        <div className='comment-information'>
+          <strong>{comment_obj.name}:</strong> 
+          <p>{comment_obj.submission.slice(0, 10)}</p>
+        </div>
+
+        <div className='comment-content'>{comment_obj.content}</div>
+
+        <div className='comment-actions'>
+
+          { liked && user !== "Guest" ? 
+              <FaThumbsUp className='like-icon' onClick={handleUnlikeSubmit}/>
+            :
+              <FaRegThumbsUp className='like-icon' onClick={handleLikeSubmit}/>
+          }
+
+          <p>{comment_obj.likes}</p>
+
+          {!showReplyInput && (<button classname='action' onClick={toggleReplyInput}>Reply</button>)}
+
+          {showReplyInput && (
+            <div>
+              <input type="text" autoFocus value={reply.content} onChange={handleReplyChange} onKeyDown={handleKeyDown}/>
+              <button onClick={handleReplySubmit} disabled={isTextAreaDisabled}>Submit Reply</button>
+              <button onClick={toggleReplyInput}>Cancel</button>
+            </div>
+          )}
+
+          { comment_obj.name.toUpperCase() === user.toUpperCase() && comment_obj.name !== "Guest" &&
+            <button id='delete-btn' onClick={() => handleDeleteItem(comment_obj.id, "comment")}>Delete</button>
+          }
+        </div>
+        <ReplyList 
+          reply_list={comment_obj.replies} 
+          handleDeleteItem={handleDeleteItem} 
+          handleReplyLike={handleReplyLike} 
+          comment_id={comment_obj.id}
+          handleUnReplyLike={handleUnReplyLike}
+        />
       </div>
     </div>
   );

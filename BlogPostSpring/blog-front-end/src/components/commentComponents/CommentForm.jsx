@@ -29,7 +29,7 @@ export const CommentForm = ({ handleAddComment }) => {
 
     return (
         <form onSubmit={handleSubmit}> 
-            <input
+            <textarea
                 type='text'
                 name='content'
                 autoFocus

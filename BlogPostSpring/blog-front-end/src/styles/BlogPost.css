@@ -42,6 +42,7 @@ textarea:focus {
     flex-direction: column;
     width: 100%;
     align-items:end;
+    padding: 20px 0 30px 5px;
 }
 
 .comment-form form {
@@ -117,6 +118,10 @@ textarea:focus {
     max-width: 15%;
 }
 
+#comment-submit-off {
+    background-color: rgb(221, 221, 221);
+    color:rgb(131, 131, 131);
+}
 #comment-submit-on {
     background-color: #ff4d6d;
     color: white;

@@ -21,7 +21,6 @@ export const CommentList = ({ comments, handleDeleteItem, handleAddReply,
                 />
               </div>
             </li>
-          
         ))
       }
     </ul>

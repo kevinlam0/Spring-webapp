@@ -54,7 +54,8 @@ export const CommentSection = () => {
 
     return (
         <>
-            {
+            <CommentForm handleAddComment ={handleAddComment} />
+            {/* {
                 addCommentMode && user !== "Guest" ?
                     <div>
                         <CommentForm handleAddComment ={handleAddComment} />
@@ -62,7 +63,7 @@ export const CommentSection = () => {
                     </div>
                 :
                     <button id='comment-main-btn' onClick={toggleAddComment}>Add comment</button>
-            }
+            } */}
             <CommentList 
                 comments={commentData}
                 handleDeleteItem={handleDeleteItem}

@@ -9,7 +9,7 @@ export const CommentForm = ({ handleAddComment }) => {
         name: user
     })
     const isTextAreaDisabled = comment.content.trim().length === 0;
-
+    const defaultHeight = '31px';
     const handleSubmit = (e) => {
         if (user === "Guest") {alert("You cannot add comments as a guest. Please log in!")}
         else {
@@ -17,38 +17,50 @@ export const CommentForm = ({ handleAddComment }) => {
             handleAddComment(comment);
             setComment(prevState => ({...prevState, content: ""}));
             if (textareaRef.current) {
-                textareaRef.current.style.height = 'auto';
+                textareaRef.current.style.height = defaultHeight;
             }
         }   
     }
 
     const handleKeyDown = (e) => {
-        if (e.key === 'Enter') { handleSubmit(e); }
+        if (e.key === 'Enter') { 
+            if (user === "Guest") {
+                e.preventDefault();
+            }
+            handleSubmit(e); 
+        }
     }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setComment(prevState => ({ ...prevState, [name]: value }))
         if (textareaRef.current) {
-            textareaRef.current.style.height = 'auto';
             textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
         }
+        
     }
+    if (textareaRef.current) { if (comment.content.length === 0) {textareaRef.current.style.height = defaultHeight;} }
 
     return (
-        <form onSubmit={handleSubmit}> 
-            <textarea
-                ref={textareaRef}
-                type='text'
-                name='content'
-                autoFocus
-                value={comment.content}
-                onChange={handleChange}
-                placeholder='Enter Comment...' 
-                onKeyDown={handleKeyDown}
-                style={{ resize: 'none' }}
-            />
-            <button type="submit" disabled={isTextAreaDisabled}>Submit</button>
-        </form>
+        <div className='comment-form'>
+            <form > 
+                <textarea
+                    ref={textareaRef}
+                    type='text'
+                    name='content'
+                    value={comment.content}
+                    onChange={handleChange}
+                    placeholder='Enter Comment...' 
+                    onKeyDown={handleKeyDown}
+                    style={{ resize: 'none', height: defaultHeight }}
+                />
+            </form>
+            
+            { isTextAreaDisabled ? 
+                <button id='comment-submit-off' onClick={handleSubmit} disabled={isTextAreaDisabled}>Comment</button>
+                :
+                <button id='comment-submit-on' onClick={handleSubmit} disabled={isTextAreaDisabled}>Comment</button>
+            }
+        </div>
     )
 }

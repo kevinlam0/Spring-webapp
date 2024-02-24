@@ -21,7 +21,7 @@ export const LoginPage = () => {
         <div className="login-form-container">
           <div className='login-form'>
             <h3>Welcome</h3>
-            <input type="text" autoFocus placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input type="text" autoFocus onKeyDown={handleKeyDown} placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
             <input type="password" onKeyDown={handleKeyDown} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <div className='login-button-container'>
               <button id='login-btn' onClick={() => handleLogin(username, password)}>Login</button>

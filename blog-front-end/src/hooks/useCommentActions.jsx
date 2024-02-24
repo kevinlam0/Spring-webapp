@@ -7,6 +7,7 @@ export const useCommentActions = () => {
                 body: JSON.stringify(comment) 
             });
             if (!response.ok) { 
+                if (response.status === 464) { alert("Comment is too long. Please reduce word count") }
                 throw new Error(''); 
             }
         }

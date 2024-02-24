@@ -51,6 +51,7 @@
     box-shadow: var(--box-shadow);
     color: #000000;
     border: 0;
+    transition-duration: 0.4s;
   }
   
   .login-button-container button:hover {

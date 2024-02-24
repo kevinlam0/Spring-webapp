@@ -8,8 +8,7 @@ export const CommentList = ({ comments, handleDeleteItem, handleAddReply,
 		<ul>
       {
         comments.map(comment => (
-          <div key={comment.id}>
-            <li >
+            <li key={comment.id}>
               <div className="comment-container">
                 <Comment 
                   comment_obj = {comment}
@@ -22,7 +21,7 @@ export const CommentList = ({ comments, handleDeleteItem, handleAddReply,
                 />
               </div>
             </li>
-          </div>
+          
         ))
       }
     </ul>

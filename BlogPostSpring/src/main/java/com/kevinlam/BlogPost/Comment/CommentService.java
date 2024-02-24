@@ -23,7 +23,8 @@ public class CommentService {
         return res;
     }
     public void addComment(Comment c) throws Exception {
-        if (c.getContent().length() > 150) { throw new IllegalArgumentException();}
+        if (c.getContent().length() > 1000) {
+            System.out.println(c.getContent().length()); throw new IllegalArgumentException();}
         if (c.getName().equalsIgnoreCase("guest")) {throw new Exception();}
         if (c.getContent().trim().equals("")) { throw new Exception(); }
         setCurrentTime(c);

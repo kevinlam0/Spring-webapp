@@ -23,8 +23,10 @@ export const BlogPost = () => {
             {
               viewComment ? 
                 <div>
-                  <button id='comment-main-btn' onClick={toggleViewComment}>Close comments</button>
-                  <CommentSection/>
+                  <button id='comment-main-btn' onClick={toggleViewComment}>Close comments</button> 
+                  <div className='comment-section-data'>
+                   <CommentSection/>
+                  </div>
                 </div>
               :
                 <button id='view-comment-btn' onClick={toggleViewComment}>View Comments</button>

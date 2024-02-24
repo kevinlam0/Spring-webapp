@@ -7,28 +7,8 @@
 .comment-section-container ul {
     list-style-type: none;
     padding-left: 5px;
-  }
-.comment-section-data textarea {
-    width: 100%;
-    height: 36px;
-    border: none; 
-    border-bottom: 1px solid black;
-    overflow-y: auto;
-    max-height: 250px;
-    box-sizing: border-box;
-    padding-bottom: 5px;
-    resize: none;
-    transition-duration: 0.2s;
 }
 
-textarea::-webkit-scrollbar{
-    width: 0px;
-  }
-
-textarea:focus {
-    border-color: #ff4d6d;
-    outline: 0;
-}
 
 .comment-section-container {
     margin-bottom: 10%;
@@ -37,62 +17,6 @@ textarea:focus {
     margin-right: 30%;
 }
 
-.comment-form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items:end;
-    padding: 20px 0 30px 5px;
-}
-
-.comment-form form {
-    width: 100%;
-}
-
-.comment-container {
-    margin-bottom: 10px;
-}
-.comment {
-    display: flex;
-    padding-bottom: 18px;
-}
-
-.non-icon-comment {
-    padding-left: 14px;
-    display: flex;
-    flex-direction: column;
-}
-.comment-information {
-    display: flex;
-    height: 14px;
-    margin-bottom: 12px;
-}
-
-.comment-information strong {
-    padding: 0 5px 0 0;
-    font-size: 17px;
-}
-.comment-information p {
-    color: rgb(107, 107, 107);
-    font-size: 15px;
-}
-
-.profile-icon-comment {
-    font-size: 36px;
-}
-
-.comment-actions {
-    display: flex;
-    align-items: center;
-}
-
-.comment-actions p {
-    margin-bottom: 0;
-}
-
-.comment-actions > * {
-    margin-right: 10px; 
-}
 
 /* BUTTONS */
 .comment-section-container button {
@@ -106,40 +30,14 @@ textarea:focus {
     background-color: #ff4d6d;
     color: white
 }
-
+#view-comment-btn {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 2px 6px rgba(0, 0, 0, 0.2);
+}
 #comment-main-btn {
     margin-bottom: 20px;
     font-size: 15px;
     padding: 6px 15px 6px 15px;
-}
-
-#comment-submit-off, #comment-submit-on {
-    font-size: 15px;
-    max-width: 15%;
-}
-
-#comment-submit-off {
-    background-color: rgb(221, 221, 221);
-    color:rgb(131, 131, 131);
-}
-#comment-submit-on {
-    background-color: #ff4d6d;
-    color: white;
-}
-
-#comment-submit-on:hover {
-    background-color: #e13e5c
-}
-
-.like-icon {
-    transition: color 0.3s ease;
-    font-size: 16px;
-    margin-right: 7px;
-  }
-
-.like-icon:hover {
-cursor: pointer;
-color: #007bff; 
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .comment-section-data button {

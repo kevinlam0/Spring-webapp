@@ -8,11 +8,11 @@
   }
   .blog-content {
     flex: 1;
-    padding: 20px; /* Adjust as needed */
+    padding: 20px; 
   }
   
   .blog-section {
-    margin-bottom: 20px; /* Adjust as needed */
+    margin-bottom: 20px; 
     max-width: 90%;
   }
   
@@ -24,6 +24,6 @@
   }
   
   .blog-image img {
-    max-width: 80%; /* Ensure the image does not overflow its container */
+    max-width: 80%; 
     height: auto;
   }

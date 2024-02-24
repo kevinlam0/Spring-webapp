@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useUser } from '../../context/UserContext';
 export const CommentForm = ({ handleAddComment }) => {
 
     const { user } = useUser();
+    const textareaRef = useRef(null);
     const [comment, setComment] = useState({
         content: "",
         name: user
@@ -15,6 +16,9 @@ export const CommentForm = ({ handleAddComment }) => {
             e.preventDefault();
             handleAddComment(comment);
             setComment(prevState => ({...prevState, content: ""}));
+            if (textareaRef.current) {
+                textareaRef.current.style.height = 'auto';
+            }
         }   
     }
 
@@ -25,11 +29,16 @@ export const CommentForm = ({ handleAddComment }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setComment(prevState => ({ ...prevState, [name]: value }))
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+        }
     }
 
     return (
         <form onSubmit={handleSubmit}> 
             <textarea
+                ref={textareaRef}
                 type='text'
                 name='content'
                 autoFocus
@@ -37,6 +46,7 @@ export const CommentForm = ({ handleAddComment }) => {
                 onChange={handleChange}
                 placeholder='Enter Comment...' 
                 onKeyDown={handleKeyDown}
+                style={{ resize: 'none' }}
             />
             <button type="submit" disabled={isTextAreaDisabled}>Submit</button>
         </form>

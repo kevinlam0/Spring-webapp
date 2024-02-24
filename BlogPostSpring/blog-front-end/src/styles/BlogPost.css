@@ -10,11 +10,11 @@ ul {
 textarea {
     width: 100%;
     border: none; /* Remove borders */
-    resize: vertical;
     overflow-y: auto;
-    max-height: 400px;
+    max-height: 250px;
     box-sizing: border-box;
     padding-bottom: 10px;
+    resize: none;
 }
 .comment-section-container {
     margin-bottom: 10%;

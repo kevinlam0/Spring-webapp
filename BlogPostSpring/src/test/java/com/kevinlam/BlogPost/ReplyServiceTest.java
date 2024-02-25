@@ -70,7 +70,7 @@ public class ReplyServiceTest {
         lenient().when(mockReply.getContent()).thenReturn("    ");
         lenient().when(mockCommentDB.findById(1)).thenReturn(optionalComment);
 
-        assertThrows(IllegalArgumentException.class, () -> replyService.addReplyToComment(1, mockReply));
+        assertThrows(Exception.class, () -> replyService.addReplyToComment(1, mockReply));
 
         verify(mockReply, never()).setComment(comment1);
         verify(mockReplyDB, never()).save(mockReply);

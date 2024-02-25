@@ -16,6 +16,8 @@ import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -160,4 +162,17 @@ public class ReplyServiceTest {
         verify(mockReplyDB, never()).delete(any());
     }
 
+    @Test
+    public void testIncrementLike() {
+        Reply reply1 = new Reply();
+        reply1.setLikes(3);
+        int id = 1;
+        when(mockReplyDB.findById(id)).thenReturn(Optional.of(reply1));
+        assertFalse(reply1.getLikedBy().contains("kevin"));
+        assertDoesNotThrow(() -> replyService.incrementLike(id, "KEVin"));
+
+        assertTrue(reply1.getLikedBy().contains("kevin"));
+        assertEquals(4, reply1.getLikes());
+        verify(mockReplyDB, times(1)).save(reply1);
+    }
 }

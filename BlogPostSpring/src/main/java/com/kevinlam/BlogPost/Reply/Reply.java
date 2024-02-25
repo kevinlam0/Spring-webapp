@@ -67,6 +67,7 @@ public class Reply {
     }
 
     public List<String> getLikedBy() {
+        if(likedBy == null) {likedBy = new ArrayList<>();}
         return likedBy;
     }
 

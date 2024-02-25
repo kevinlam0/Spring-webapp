@@ -1,0 +1,62 @@
+.reply-container {
+    margin-bottom: 5px;
+}
+.reply {
+    display: flex;
+    padding-bottom: 6px;
+}
+.profile-icon-reply {
+    font-size: 26px;
+}
+
+.non-icon-reply {
+    padding-left: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.reply-information {
+    display: flex;
+    height: 14px;
+    margin-bottom: 6px;
+}
+.reply-information strong {
+    padding: 0 5px 0 0;
+    font-size: 15px;
+}
+.reply-information p {
+    color: rgb(107, 107, 107);
+    font-size: 13px;
+}
+
+/* Actions */
+.reply-actions {
+    display: flex;
+    align-items: center;
+}
+
+.reply-actions p {
+    margin-bottom: 0;
+}
+
+.reply-actions > * {
+    margin-right: 10px; 
+}
+
+.reply-input-container {
+    display: flex;
+}
+
+.reply-input-container textarea {
+    margin-left: 12px;
+}
+
+.reply-input-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Buttons */
+.reply-actions .like-icon {
+    margin-right: 7px;
+}

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { CommentList } from "./CommentList";
 import { CommentForm } from "./CommentForm";
 import { useCommentActions } from "../../hooks/useCommentActions";
-// import { useUser } from "../../context/UserContext";
 import "../../styles/CommentSection.css"
 
 export const CommentSection = () => {

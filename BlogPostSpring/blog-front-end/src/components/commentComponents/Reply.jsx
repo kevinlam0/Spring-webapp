@@ -3,6 +3,7 @@ import { useUser } from '../../context/UserContext';
 import { CgProfile } from "react-icons/cg";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { FaThumbsUp } from "react-icons/fa";
+import { FiTrash2 } from "react-icons/fi";
 
 export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLike, handleUnReplyLike }) => {
     
@@ -36,7 +37,7 @@ export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLi
         <div className="reply">
 
           <div className='icon-reply'>
-            <CgProfile className='profile-icon-comment'/>
+            <CgProfile className='profile-icon-reply'/>
           </div>
 
 
@@ -49,7 +50,7 @@ export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLi
 
             <div className='reply-content'>{reply_object.content}</div>
 
-            <div className='comment-actions'>
+            <div className='reply-actions'>
 
               {liked && user !== "Guest" ? 
                   <FaThumbsUp className='like-icon' onClick={handleUnlikeSubmit}/>
@@ -60,7 +61,7 @@ export const Reply = ({reply_object, comment_id, handleDeleteItem, handleReplyLi
               <p>{reply_object.likes}</p>
 
               { reply_object.name === user  && reply_object.name !== "Guest" &&
-                <button onClick={() => handleDeleteItem(reply_object.id, "reply")}>Delete Reply</button>
+                <FiTrash2  id='delete-icon' style={{ cursor: 'pointer' }} onClick={() => handleDeleteItem(reply_object.id, "reply")}/>
               }
             </div>
           </div>

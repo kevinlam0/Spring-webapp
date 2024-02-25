@@ -50,7 +50,7 @@ export const CommentForm = ({ handleAddComment }) => {
                     name='content'
                     value={comment.content}
                     onChange={handleChange}
-                    placeholder='Enter Comment...' 
+                    placeholder='Add comment...' 
                     onKeyDown={handleKeyDown}
                     style={{ resize: 'none', height: defaultHeight }}
                 />

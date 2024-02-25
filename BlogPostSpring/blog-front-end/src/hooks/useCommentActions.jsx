@@ -8,7 +8,6 @@ export const useCommentActions = () => {
             });
             if (!response.ok) { 
                 if (response.status === 464) { alert("Comment is too long. Please reduce word count") }
-                throw new Error(''); 
             }
         }
         catch (error) { console.error("Error creating comment: ", error); }

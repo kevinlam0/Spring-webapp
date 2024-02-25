@@ -39,6 +39,7 @@ public class BlogPostController {
     public ResponseEntity<?> addReply(@PathVariable("comment_id") int commentId, @RequestBody Reply reply) {
         try {replyService.addReplyToComment(commentId, reply);}
         catch (IllegalArgumentException e) { return ResponseEntity.status(464).body("");}
+        catch (Exception e) { return ResponseEntity.status(460).body(""); }
         return ResponseEntity.ok("");
     }
 

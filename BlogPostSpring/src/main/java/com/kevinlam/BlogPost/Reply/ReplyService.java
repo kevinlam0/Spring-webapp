@@ -24,10 +24,10 @@ public class ReplyService {
         res.sort(Comparator.comparing(Reply::getSubmission));
         return res;
     }
-    public void addReplyToComment(int commentID, Reply r) {
+    public void addReplyToComment(int commentID, Reply r) throws Exception {
         if (r.getContent().length() > 1000) {throw new IllegalArgumentException();}
         if (r.getName().equalsIgnoreCase("guest")) {throw new IllegalArgumentException();}
-        if (r.getContent().trim().equals("")) { throw new IllegalArgumentException(); }
+        if (r.getContent().trim().equals("")) { throw new Exception(); }
 
         Optional<Comment> optionalComment = commentDB.findById(commentID);
         if (optionalComment.isPresent()) {

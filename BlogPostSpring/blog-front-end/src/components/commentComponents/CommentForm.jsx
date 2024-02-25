@@ -24,10 +24,9 @@ export const CommentForm = ({ handleAddComment }) => {
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') { 
-            if (user === "Guest") {
-                e.preventDefault();
-            }
-            handleSubmit(e); 
+            if (user === "Guest") { e.preventDefault(); }
+            if (comment.content.trim().length !== 0 ) {handleSubmit(e);}
+            else { e.preventDefault() }
         }
     }
 

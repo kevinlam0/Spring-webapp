@@ -88,6 +88,7 @@ public class Comment {
     }
 
     public List<Reply> getReplies() {
+        if (replies == null) {replies = new ArrayList<>();}
         return replies;
     }
 

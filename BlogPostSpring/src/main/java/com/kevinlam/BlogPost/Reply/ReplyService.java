@@ -26,8 +26,9 @@ public class ReplyService {
     }
     public void addReplyToComment(int commentID, Reply r) {
         if (r.getContent().length() > 1000) {throw new IllegalArgumentException();}
-        Optional<Comment> optionalComment = commentDB.findById(commentID);
         if (r.getName().equalsIgnoreCase("guest")) {throw new IllegalArgumentException();}
+
+        Optional<Comment> optionalComment = commentDB.findById(commentID);
         if (optionalComment.isPresent()) {
             Comment c = optionalComment.get();
             r.setComment(c);

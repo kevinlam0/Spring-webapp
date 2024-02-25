@@ -47,13 +47,19 @@ public class ReplyServiceTest {
         verify(mockReplyDB, times(1)).save(mockReply);
     }
 
-//    @Test
-//    public void testAddComment_guestAddComment() {
-//        when(mockComment1.getName()).thenReturn("guESt");
-//        when(mockComment1.getContent()).thenReturn("Normal content");
-//        assertThrows(Exception.class, () -> {commentService.addComment(mockComment1);});
-//        verify(commentDB, never()).save(mockComment1);
-//    }
+    @Test
+    public void testAddReplyToComment_guestAddReply() {
+        Comment comment1 = new Comment();
+        Optional<Comment> optionalComment = Optional.of(comment1);
+        when(mockReply.getName()).thenReturn("Guest");
+        lenient().when(mockReply.getContent()).thenReturn("Normal content");
+        lenient().when(mockCommentDB.findById(1)).thenReturn(optionalComment);
+
+        assertThrows(IllegalArgumentException.class, () -> replyService.addReplyToComment(1, mockReply));
+
+        verify(mockReply, never()).setComment(comment1);
+        verify(mockReplyDB, never()).save(mockReply);
+    }
 //
 //    @Test
 //    public void testAddComment_blankAddComment()  {

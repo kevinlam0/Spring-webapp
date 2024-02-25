@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { CommentList } from "./CommentList";
 import { CommentForm } from "./CommentForm";
 import { useCommentActions } from "../../hooks/useCommentActions";
-import { useUser } from "../../context/UserContext";
+import "../../styles/CommentSection.css"
 
 export const CommentSection = () => {
     const [commentData, setCommentData] = useState([]);
     const { addComment, deleteItem, addReply, addLike, unlike, addReplyLike, unReplyLike } = useCommentActions();
-    const [addCommentMode, setAddCommentMode] = useState(false);
-    const { user } = useUser();
+    // const [addCommentMode, setAddCommentMode] = useState(false);
+    // const { user } = useUser();
 
     const fetchData = async () => {
         await fetch('http://localhost:8080/blogpost/comments')
@@ -47,10 +47,10 @@ export const CommentSection = () => {
         await unReplyLike(reply_id, username);
         fetchData();
     }
-    const toggleAddComment = () => {
-        if (user === "Guest") {alert("You cannot add comments as a guest. Please log in!")}
-        else {setAddCommentMode(!addCommentMode);}
-    }
+    // const toggleAddComment = () => {
+    //     if (user === "Guest") {alert("You cannot add comments as a guest. Please log in!")}
+    //     else {setAddCommentMode(!addCommentMode);}
+    // }
 
     return (
         <>

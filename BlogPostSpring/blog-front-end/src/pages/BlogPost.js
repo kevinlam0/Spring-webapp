@@ -1,7 +1,7 @@
 import { Header } from "../components/Header";
 import { OpeningPictures } from "../components/OpeningPictures";
 import { CommentSection } from '../components/commentComponents/CommentSection';
-import NavBar from "../NavBar";
+import NavBar from "../components/NavBar";
 import { useState } from 'react';
 import { BlogContent } from "../components/BlogContent";
 import "../styles/BlogPost.css"

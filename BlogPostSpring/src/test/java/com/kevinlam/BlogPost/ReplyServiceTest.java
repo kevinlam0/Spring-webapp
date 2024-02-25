@@ -10,7 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -45,7 +47,6 @@ public class ReplyServiceTest {
         verify(mockReply, times(1)).setComment(comment1);
         verify(mockReplyDB, times(1)).save(mockReply);
     }
-
     @Test
     public void testAddReplyToComment_guestAddReply() {
         Comment comment1 = new Comment();
@@ -59,9 +60,8 @@ public class ReplyServiceTest {
         verify(mockReply, never()).setComment(comment1);
         verify(mockReplyDB, never()).save(mockReply);
     }
-
     @Test
-    public void testAddComment_blankAddComment()  {
+    public void testAddReply_blankAddReply()  {
         Comment comment1 = new Comment();
         Optional<Comment> optionalComment = Optional.of(comment1);
         lenient().when(mockReply.getName()).thenReturn("kevin");
@@ -73,7 +73,6 @@ public class ReplyServiceTest {
         verify(mockReply, never()).setComment(comment1);
         verify(mockReplyDB, never()).save(mockReply);
     }
-
     @Test
     public void testAddReply_longAddReply()  {
         Comment comment1 = new Comment();
@@ -94,7 +93,6 @@ public class ReplyServiceTest {
         verify(mockReply, never()).setComment(comment1);
         verify(mockReplyDB, never()).save(mockReply);
     }
-
     @Test
     public void testAddReplyToComment_commentIDDoesntExist() {
         Comment comment1 = new Comment();
@@ -109,8 +107,9 @@ public class ReplyServiceTest {
         verify(mockReplyDB, never()).save(mockReply);
     }
 
+
     @Test
-    public void testDeleteReplyToComment_guestDeleteReply() {
+    public void testDeleteReplyByID_normalDeleteReply() {
         Reply reply = new Reply();
         reply.setId(1);
         when(mockReplyDB.findById(1)).thenReturn(Optional.of(reply));
@@ -127,67 +126,38 @@ public class ReplyServiceTest {
         assertFalse(comment1.getReplies().contains(reply));
         verify(mockCommentDB, times(1)).save(comment1);
         verify(mockReplyDB, times(1)).delete(reply);
+    }
+    @Test
+    public void testDeleteByID_noReplyWithID()  {
+        int id = 2;
+        Optional<Reply> mockOptionalReply = Mockito.mock(Optional.class);
+        when(mockReplyDB.findById(id)).thenReturn(mockOptionalReply);
+        when(mockOptionalReply.isEmpty()).thenReturn(true);
 
+        assertThrows(IllegalArgumentException.class, () -> replyService.deleteReplyByID(id));
+        verify(mockOptionalReply, never()).get();
+        verify(mockCommentDB, never()).save(any());
+        verify(mockReplyDB, never()).delete(any());
+    }
+    @Test
+    public void testDeleteByID_noCommentWithID()  {
+        int id = 2;
+        Comment mockComment = Mockito.mock(Comment.class);
+        Optional<Comment> mockOptionalComment = Mockito.mock(Optional.class);
+        Optional<Reply> mockOptionalReply = Mockito.mock(Optional.class);
+        lenient().when(mockOptionalReply.isEmpty()).thenReturn(false);
 
-//        Optional<Comment> optionalComment = Optional.of(comment1);
-//        comment.a
-//
-//        when(mockReply.getName()).thenReturn("Guest");
-//        lenient().when(mockReply.getContent()).thenReturn("Normal content");
-//        lenient().when(mockCommentDB.findById(1)).thenReturn(optionalComment);
-//
-//        assertThrows(IllegalArgumentException.class, () -> replyService.addReplyToComment(1, mockReply));
-//
-//        verify(mockReply, never()).setComment(comment1);
-//        verify(mockReplyDB, never()).save(mockReply);
+        when(mockReplyDB.findById(id)).thenReturn(mockOptionalReply);
+        when(mockOptionalReply.get()).thenReturn( mockReply);
+        when(mockReply.getComment()).thenReturn(mockComment);
+        when(mockComment.getId()).thenReturn(3);
+        when(mockCommentDB.findById(3)).thenReturn(mockOptionalComment);
+        when(mockOptionalComment.isEmpty()).thenReturn(true);
+
+        assertThrows(IllegalArgumentException.class, () -> replyService.deleteReplyByID(id));
+        verify(mockOptionalComment, never()).get();
+        verify(mockCommentDB, never()).save(any());
+        verify(mockReplyDB, never()).delete(any());
     }
 
-//    @Test
-//    public void testAddComment_blankAddComment()  {
-//        Comment comment1 = new Comment();
-//        Optional<Comment> optionalComment = Optional.of(comment1);
-//        lenient().when(mockReply.getName()).thenReturn("kevin");
-//        lenient().when(mockReply.getContent()).thenReturn("    ");
-//        lenient().when(mockCommentDB.findById(1)).thenReturn(optionalComment);
-//
-//        assertThrows(IllegalArgumentException.class, () -> replyService.addReplyToComment(1, mockReply));
-//
-//        verify(mockReply, never()).setComment(comment1);
-//        verify(mockReplyDB, never()).save(mockReply);
-//    }
-//
-//    @Test
-//    public void testAddReply_longAddReply()  {
-//        Comment comment1 = new Comment();
-//        Optional<Comment> optionalComment = Optional.of(comment1);
-//        lenient().when(mockReply.getName()).thenReturn("kevin");
-//        lenient().when(mockCommentDB.findById(1)).thenReturn(optionalComment);
-//        when(mockReply.getContent()).thenReturn("Lorem ipsum dolor sit amet consectetur. Proin integer faucibus a interdum nullam lacinia. " +
-//                "Nam id sagittis bibendum pretium id fames in luctus commodo. Odio euismod nunc eget ultrices at purus sagittis. " +
-//                "Sagittis eu magna purus pulvinar curabitur ornare facilisis. Proin ac pellentesque varius cras posuere mi. " +
-//                "Nunc vitae ullamcorper aliquet orci facilisis viverra. Facilisi scelerisque ullamcorper tincidunt sit et. " +
-//                "Odio vitae elementum sapien volutpat. Pellentesque tempor senectus nec mattis. Eu eu iaculis elementum ut vel sem dolor faucibus " +
-//                "mi. Elementum pellentesque accumsan viverra lorem. Nulla ultricies et velit fringilla dui urna laoreet porttitor consequat. Id in " +
-//                "nec justo duis interdum eu. Faucibus vulputate turpis enim imperdiet sit. At aliquam aliquet pretium neque faucibus adipiscing enim. " +
-//                "Suspendisse leo fringilla eget interdum eget feugiat semper et justo. Tincidunt fusce ut commodo porttitor ullamcorper habitant lacus " +
-//                "viverra imperdiet. Sollicitudin cras at neque mauris. Quis etiam volutpat commodo felis tempor sagittis at.");
-//
-//        assertThrows(IllegalArgumentException.class, () -> replyService.addReplyToComment(1, mockReply));
-//        verify(mockReply, never()).setComment(comment1);
-//        verify(mockReplyDB, never()).save(mockReply);
-//    }
-//
-//    @Test
-//    public void testAddReplyToComment_commentIDDoesntExist() {
-//        Comment comment1 = new Comment();
-//        Optional<Comment> optionalComment = Optional.empty();
-//        when(mockReply.getName()).thenReturn("kevin");
-//        lenient().when(mockReply.getContent()).thenReturn("Normal content");
-//        lenient().when(mockCommentDB.findById(1)).thenReturn(optionalComment);
-//
-//        assertThrows(IllegalArgumentException.class, () -> replyService.addReplyToComment(1, mockReply));
-//
-//        verify(mockReply, never()).setComment(comment1);
-//        verify(mockReplyDB, never()).save(mockReply);
-//    }
 }

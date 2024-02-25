@@ -26,6 +26,9 @@ public class ReplyService {
     }
     public void addReplyToComment(int commentID, Reply r) {
         if (r.getContent().length() > 1000) {throw new IllegalArgumentException();}
+        if (r.getName().equalsIgnoreCase("guest")) {throw new IllegalArgumentException();}
+        if (r.getContent().trim().equals("")) { throw new IllegalArgumentException(); }
+
         Optional<Comment> optionalComment = commentDB.findById(commentID);
         if (optionalComment.isPresent()) {
             Comment c = optionalComment.get();
@@ -33,15 +36,7 @@ public class ReplyService {
             setCurrentTime(r);
             replyDB.save(r);
         }
-        else { throw new IllegalArgumentException("There is not a corresponding comment to this reply: "); }
-    }
-
-    private static void setCurrentTime(Reply r) {
-        long millis = System.currentTimeMillis();
-        Instant instant = Instant.ofEpochMilli(millis);
-        ZoneId zoneId = ZoneId.systemDefault();
-        LocalDateTime current = instant.atZone(zoneId).toLocalDateTime();
-        r.setSubmission(current);
+        else { throw new IllegalArgumentException(""); }
     }
 
     public void deleteReplyByID(int id) {
@@ -81,6 +76,13 @@ public class ReplyService {
         reply.removeUserFromLikedBy(username.toLowerCase());
         reply.setLikes(reply.getLikes() - 1);
         replyDB.save(reply);
+    }
+    private static void setCurrentTime(Reply r) {
+        long millis = System.currentTimeMillis();
+        Instant instant = Instant.ofEpochMilli(millis);
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime current = instant.atZone(zoneId).toLocalDateTime();
+        r.setSubmission(current);
     }
 }
 

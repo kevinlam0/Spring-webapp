@@ -75,20 +75,24 @@ public class ReplyServiceTest {
         verify(mockReplyDB, never()).save(mockReply);
     }
 
-//    @Test
-//    public void testAddComment_longAddComment()  {
-//        lenient().when(mockComment1.getName()).thenReturn("kevin");
-//        when(mockComment1.getContent()).thenReturn("Lorem ipsum dolor sit amet consectetur. Proin integer faucibus a interdum nullam lacinia. " +
-//                "Nam id sagittis bibendum pretium id fames in luctus commodo. Odio euismod nunc eget ultrices at purus sagittis. " +
-//                "Sagittis eu magna purus pulvinar curabitur ornare facilisis. Proin ac pellentesque varius cras posuere mi. " +
-//                "Nunc vitae ullamcorper aliquet orci facilisis viverra. Facilisi scelerisque ullamcorper tincidunt sit et. " +
-//                "Odio vitae elementum sapien volutpat. Pellentesque tempor senectus nec mattis. Eu eu iaculis elementum ut vel sem dolor faucibus " +
-//                "mi. Elementum pellentesque accumsan viverra lorem. Nulla ultricies et velit fringilla dui urna laoreet porttitor consequat. Id in " +
-//                "nec justo duis interdum eu. Faucibus vulputate turpis enim imperdiet sit. At aliquam aliquet pretium neque faucibus adipiscing enim. " +
-//                "Suspendisse leo fringilla eget interdum eget feugiat semper et justo. Tincidunt fusce ut commodo porttitor ullamcorper habitant lacus " +
-//                "viverra imperdiet. Sollicitudin cras at neque mauris. Quis etiam volutpat commodo felis tempor sagittis at.");
-//
-//        assertThrows(IllegalArgumentException.class, () -> {commentService.addComment(mockComment1);});
-//        verify(commentDB, never()).save(mockComment1);
-//    }
+    @Test
+    public void testAddReply_longAddReply()  {
+        Comment comment1 = new Comment();
+        Optional<Comment> optionalComment = Optional.of(comment1);
+        lenient().when(mockReply.getName()).thenReturn("kevin");
+        lenient().when(mockCommentDB.findById(1)).thenReturn(optionalComment);
+        when(mockReply.getContent()).thenReturn("Lorem ipsum dolor sit amet consectetur. Proin integer faucibus a interdum nullam lacinia. " +
+                "Nam id sagittis bibendum pretium id fames in luctus commodo. Odio euismod nunc eget ultrices at purus sagittis. " +
+                "Sagittis eu magna purus pulvinar curabitur ornare facilisis. Proin ac pellentesque varius cras posuere mi. " +
+                "Nunc vitae ullamcorper aliquet orci facilisis viverra. Facilisi scelerisque ullamcorper tincidunt sit et. " +
+                "Odio vitae elementum sapien volutpat. Pellentesque tempor senectus nec mattis. Eu eu iaculis elementum ut vel sem dolor faucibus " +
+                "mi. Elementum pellentesque accumsan viverra lorem. Nulla ultricies et velit fringilla dui urna laoreet porttitor consequat. Id in " +
+                "nec justo duis interdum eu. Faucibus vulputate turpis enim imperdiet sit. At aliquam aliquet pretium neque faucibus adipiscing enim. " +
+                "Suspendisse leo fringilla eget interdum eget feugiat semper et justo. Tincidunt fusce ut commodo porttitor ullamcorper habitant lacus " +
+                "viverra imperdiet. Sollicitudin cras at neque mauris. Quis etiam volutpat commodo felis tempor sagittis at.");
+
+        assertThrows(IllegalArgumentException.class, () -> replyService.addReplyToComment(1, mockReply));
+        verify(mockReply, never()).setComment(comment1);
+        verify(mockReplyDB, never()).save(mockReply);
+    }
 }

@@ -175,4 +175,17 @@ public class ReplyServiceTest {
         assertEquals(4, reply1.getLikes());
         verify(mockReplyDB, times(1)).save(reply1);
     }
+
+    @Test
+    public void testIncrementLike_guest() {
+        Reply reply1 = new Reply();
+        reply1.setLikes(3);
+        int id = 1;
+        lenient().when(mockReplyDB.findById(id)).thenReturn(Optional.of(reply1));
+        assertEquals(3, reply1.getLikes());
+        assertThrows(IllegalArgumentException.class, () -> replyService.incrementLike(id, "Guest"));
+
+        assertEquals(3, reply1.getLikes());
+        verify(mockReplyDB, never()).save(reply1);
+    }
 }

@@ -27,8 +27,6 @@ public class CommentServiceTest {
     private CommentService commentService;
     @Mock
     Comment mockComment1;
-    @Mock
-    Comment mockComment2;
     @Test
     public void testGetAllComments_DescendingOrder() {
         // Mock data
@@ -55,7 +53,7 @@ public class CommentServiceTest {
         Comment comment1 = new Comment();
         comment1.setId(1);
         comment1.setSubmission(LocalDateTime.of(2022, 1, 1, 10, 0)); // Older date
-
+        Comment mockComment2 = Mockito.mock(Comment.class);
         // Comment 2 setup
         when(mockComment2.getId()).thenReturn(2);
         when(mockComment2.getSubmission()).thenReturn(LocalDateTime.of(2022, 1, 3, 10, 0)); // later

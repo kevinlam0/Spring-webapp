@@ -17,9 +17,7 @@ public class CommentService {
         List<Comment> res = db.findAll();
         res.sort(Comparator.comparing(Comment::getSubmission));
         Collections.reverse(res);
-        for (Comment c: res) {
-            c.sortRepliesByDate();
-        }
+        for (Comment c: res) { c.sortRepliesByDate(); }
         return res;
     }
     public void addComment(Comment c) throws Exception {

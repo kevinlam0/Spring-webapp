@@ -94,7 +94,10 @@ public class Comment {
     public void setReplies(List<Reply> replies) {
         this.replies = replies;
     }
-    public void sortRepliesByDate() {this.replies.sort(Comparator.comparing(Reply::getSubmission));}
+    public void sortRepliesByDate() {
+        if (this.replies == null) {this.replies = new ArrayList<>(); return;}
+        this.replies.sort(Comparator.comparing(Reply::getSubmission));
+    }
 
     public List<String> getLikedBy() {
         return likedBy;

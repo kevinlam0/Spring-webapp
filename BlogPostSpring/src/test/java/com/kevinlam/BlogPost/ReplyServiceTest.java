@@ -182,10 +182,26 @@ public class ReplyServiceTest {
         reply1.setLikes(3);
         int id = 1;
         lenient().when(mockReplyDB.findById(id)).thenReturn(Optional.of(reply1));
+
         assertEquals(3, reply1.getLikes());
         assertThrows(IllegalArgumentException.class, () -> replyService.incrementLike(id, "Guest"));
 
         assertEquals(3, reply1.getLikes());
         verify(mockReplyDB, never()).save(reply1);
     }
+    @Test
+    public void testIncrementLike_noReplyWithID() {
+        Reply reply1 = new Reply();
+        reply1.setLikes(3);
+        int id = 1;
+        lenient().when(mockReplyDB.findById(id)).thenReturn(Optional.empty());
+
+        assertEquals(3, reply1.getLikes());
+        assertThrows(IllegalArgumentException.class, () -> replyService.incrementLike(id, "Kevin"));
+
+        assertEquals(3, reply1.getLikes());
+        verify(mockReplyDB, never()).save(reply1);
+    }
+
+
 }

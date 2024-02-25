@@ -38,8 +38,10 @@ export const useCommentActions = () => {
                 headers: {'Content-Type': 'application/json'}, 
                 body: JSON.stringify(reply) 
             });
-            if (!response.ok) { throw new Error('Network response was not ok'); }
-            console.log("Reply Creation successful");
+            if (!response.ok) { 
+                if (response.status === 464) { alert("Comment is too long. Please reduce word count") }
+            }
+            else console.log("Reply Creation successful");
         }
         catch (error) { console.error("Error creating reply: ", error); }
     }

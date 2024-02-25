@@ -36,8 +36,10 @@ public class BlogPostController {
     }
 
     @PostMapping("/comments/{comment_id}/reply")
-    public void addReply(@PathVariable("comment_id") int commentId, @RequestBody Reply reply) {
-        replyService.addReplyToComment(commentId, reply);
+    public ResponseEntity<?> addReply(@PathVariable("comment_id") int commentId, @RequestBody Reply reply) {
+        try {replyService.addReplyToComment(commentId, reply);}
+        catch (IllegalArgumentException e) { return ResponseEntity.status(464).body("");}
+        return ResponseEntity.ok("");
     }
 
     @DeleteMapping("/comments")

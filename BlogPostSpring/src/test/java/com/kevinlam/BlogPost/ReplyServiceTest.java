@@ -95,4 +95,18 @@ public class ReplyServiceTest {
         verify(mockReply, never()).setComment(comment1);
         verify(mockReplyDB, never()).save(mockReply);
     }
+
+    @Test
+    public void testAddReplyToComment_commentIDDoesntExist() {
+        Comment comment1 = new Comment();
+        Optional<Comment> optionalComment = Optional.empty();
+        when(mockReply.getName()).thenReturn("kevin");
+        lenient().when(mockReply.getContent()).thenReturn("Normal content");
+        lenient().when(mockCommentDB.findById(1)).thenReturn(optionalComment);
+
+        assertThrows(IllegalArgumentException.class, () -> replyService.addReplyToComment(1, mockReply));
+
+        verify(mockReply, never()).setComment(comment1);
+        verify(mockReplyDB, never()).save(mockReply);
+    }
 }

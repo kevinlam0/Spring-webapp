@@ -203,5 +203,49 @@ public class ReplyServiceTest {
         verify(mockReplyDB, never()).save(reply1);
     }
 
+    @Test
+    public void testDecrementLike() {
+        Reply reply1 = new Reply();
+        reply1.setLikes(3);
+        reply1.getLikedBy().add("kevin");
+        int id = 1;
+        when(mockReplyDB.findById(id)).thenReturn(Optional.of(reply1));
 
+        assertTrue(reply1.getLikedBy().contains("kevin"));
+        assertDoesNotThrow(() -> replyService.decrementLike(id, "KEVin"));
+
+        assertFalse(reply1.getLikedBy().contains("kevin"));
+        assertEquals(2, reply1.getLikes());
+        verify(mockReplyDB, times(1)).save(reply1);
+    }
+    @Test
+    public void testDecrementLike_guest() {
+        Reply reply1 = new Reply();
+        reply1.setLikes(3);
+        reply1.getLikedBy().add("kevin");
+        int id = 1;
+        lenient().when(mockReplyDB.findById(id)).thenReturn(Optional.of(reply1));
+
+        assertEquals(1, reply1.getLikedBy().size());
+        assertThrows(IllegalArgumentException.class, () -> replyService.decrementLike(id, "guest"));
+
+        assertEquals(1, reply1.getLikedBy().size());
+        assertEquals(3, reply1.getLikes());
+        verify(mockReplyDB, never()).save(reply1);
+    }
+    @Test
+    public void testDecrementLike_noReplyWithID() {
+        Reply reply1 = new Reply();
+        reply1.setLikes(3);
+        reply1.getLikedBy().add("kevin");
+        int id = 1;
+        lenient().when(mockReplyDB.findById(id)).thenReturn(Optional.empty());
+
+        assertEquals(1, reply1.getLikedBy().size());
+        assertThrows(IllegalArgumentException.class, () -> replyService.decrementLike(id, "Kevin"));
+
+        assertEquals(1, reply1.getLikedBy().size());
+        assertEquals(3, reply1.getLikes());
+        verify(mockReplyDB, never()).save(reply1);
+    }
 }

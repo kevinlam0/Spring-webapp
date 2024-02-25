@@ -20,7 +20,7 @@ public class AccountService {
         if (account.getPassword().length() < 5) { throw new IllegalArgumentException(); }
         account.setUsername(account.getUsername().toLowerCase());
 
-        if (accountDB.findByUser(account.getUsername()) != null || account.getUsername().equals("guest")) {
+        if (accountDB.findByUser(account.getUsername()) != null || account.getUsername().equalsIgnoreCase("guest")) {
             throw new UserAlreadyExistsException();
         }
 

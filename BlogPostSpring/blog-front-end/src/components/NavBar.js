@@ -10,7 +10,7 @@ const NavBar = () => {
     handleLogout();
   }
   return (
-    <Navbar bg="white" expand="lg" className={styles.navbar}>
+    <Navbar bg="white" expand="lg" fixed='top' className={styles.navbar}>
       <Container className={styles.navbarContainer} >
         <Navbar.Brand id="navbrand" as={NavLink} className="navbar-brand fs-3" style={{ color: '#1a7431' }} to="/">Kevin's Blog</Navbar.Brand>
         <div className='nav-link-container'>
